@@ -87,7 +87,7 @@ if ip -6 addr add "$ip_addr/64" dev bat0 2> /dev/null; then
 fi
 
 if ! is_running "alfred"; then
-	# set minimum access rights for reading information out of kernel debug interfac
+	# set minimum access rights for reading information out of kernel debug interface
 	chown root.alfred /sys/kernel/debug
 	chmod 750 /sys/kernel/debug
 	echo "(I) Start alfred."
