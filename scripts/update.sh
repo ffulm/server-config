@@ -88,7 +88,10 @@ fi
 
 if ! is_running "alfred"; then
 	echo "(I) Start alfred."
-	start-stop-daemon --start --background --exec `which alfred` -- -i bat0 -m
+        start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid \
+                --umask 0117 --make-pidfile --chuid alfred --group alfred \
+                --background --exec `which alfred` --oknodo \
+                -- -i bat0 -m -u /var/run/alfred/alfred.sock
 fi
 
 if ! is_running "lighttpd"; then
@@ -99,7 +102,7 @@ fi
 #announce status website via alfred
 {
 	echo -n "{\"link\" : \"http://[$ip_addr]/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
-} | alfred -s 91
+} | alfred -s 91 -u /var/run/alfred/alfred.sock
 
 
 #announce map information via alfred
@@ -129,11 +132,11 @@ fi
 	echo -n '], '
 	echo -n "\"clientcount\" : 0"
 	echo -n '}'
-} | gzip -c - | alfred -s 64
+} | gzip -c - | alfred -s 64 -u /var/run/alfred/alfred.sock
 
 
 #collect all map pieces
-alfred -r 64 > /tmp/maps.txt
+alfred -r 64 -u /var/run/alfred/alfred.sock > /tmp/maps.txt
 
 #create map data
 ./ffmap-backend.py -m /tmp/maps.txt -a ./aliases.json > /var/www/nodes.json

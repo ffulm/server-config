@@ -176,6 +176,27 @@ fi
 }
 
 {
+	# set capablilities for alfred binary (create sockets and use elevated privs)
+	# got reset by installation of new alfred binary above
+	# (FYI: dropping of privileges is possible since alfred version 2015.0)
+	setcap cap_net_raw+ep `which alfred`
+
+	# create alfred group
+	addgroup --system alfred
+
+	# create separate run dir with appropriate access rights
+	mkdir -p /var/run/alfred/
+	chmod 770 /var/run/alfred/
+
+	echo "(I) Create user alfred for alfred daemon."
+	adduser --system --home /var/run/alfred --shell /bin/false --no-create-home --ingroup alfred --disabled-password alfred
+
+	# root user has to access alfred.sock via update.sh later
+	chown alfred.alfred /var/run/alfred/
+	usermod -aG alfred root
+}
+
+{
 	echo "(I) Install fastd."
 
 	apt-get install --assume-yes git cmake-curses-gui libnacl-dev flex bison libcap-dev pkg-config zip libjson-c-dev
@@ -340,4 +361,6 @@ fi
 
 echo "done"
 
-/root/scripts/update.sh
+# user root got assigned to alfred group, so use new environment here:
+# that is why we start a bash
+bash /root/scripts/update.sh
