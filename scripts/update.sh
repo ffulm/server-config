@@ -92,6 +92,7 @@ if ! is_running "alfred"; then
 	chmod 750 /sys/kernel/debug
 	# create separate run dir with appropriate access rights because it gets deleted with every reboot
 	mkdir --parents --mode=770 /var/run/alfred/
+	chown alfred.alfred /var/run/alfred/
 
 	echo "(I) Start alfred."
         start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid \
