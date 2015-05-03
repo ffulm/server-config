@@ -185,8 +185,7 @@ fi
 	addgroup --system alfred
 
 	# create separate run dir with appropriate access rights
-	mkdir -p /var/run/alfred/
-	chmod 770 /var/run/alfred/
+	mkdir --parents --mode=770 /var/run/alfred/
 
 	echo "(I) Create user alfred for alfred daemon."
 	adduser --system --home /var/run/alfred --shell /bin/false --no-create-home --ingroup alfred --disabled-password alfred

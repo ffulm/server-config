@@ -90,6 +90,9 @@ if ! is_running "alfred"; then
 	# set minimum access rights for reading information out of kernel debug interface
 	chown root.alfred /sys/kernel/debug
 	chmod 750 /sys/kernel/debug
+	# create separate run dir with appropriate access rights because it gets deleted with every reboot
+	mkdir --parents --mode=770 /var/run/alfred/
+
 	echo "(I) Start alfred."
         start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid \
                 --umask 0117 --make-pidfile --chuid alfred --group alfred \
