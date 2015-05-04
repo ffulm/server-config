@@ -362,4 +362,4 @@ echo "done"
 
 # user root got assigned to alfred group, so use new environment here.
 # call update script to immediately display correct statistics on server website.
-newgrp alfred && newgrp - && /root/scripts/update.sh
+newgrp alfred && newgrp && /root/scripts/update.sh
