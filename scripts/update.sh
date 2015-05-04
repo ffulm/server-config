@@ -91,7 +91,7 @@ if ! is_running "alfred"; then
 	chown root.alfred /sys/kernel/debug
 	chmod 750 /sys/kernel/debug
 	# create separate run dir with appropriate access rights because it gets deleted with every reboot
-	mkdir --parents --mode=770 /var/run/alfred/
+	mkdir --parents --mode=750 /var/run/alfred/
 	chown alfred.alfred /var/run/alfred/
 
 	echo "(I) Start alfred."
