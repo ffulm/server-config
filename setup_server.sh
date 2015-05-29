@@ -22,6 +22,16 @@ setup_webserver="true"
 #setup a gateway with http://mullvad.net
 setup_gateway="false"
 
+#IP v4 for mesh interface.
+#This is gateway specific. Get your IP by writing to the mailing list!
+#Format: xxx.xxx.xxx.xxx
+ipv4_mesh_interface=""
+
+#range for DHCP
+#This is gateway specific. Get your DHCP range by writing to the mailing list!
+#Enter space separated IP range: xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
+ipv4_dhcp_range=""
+
 #Set to 1 for this script to run. :-)
 run=0
 
@@ -97,11 +107,13 @@ apt-get update
 	echo "(I) Create /opt/freifunk/"
 	apt-get install --assume-yes python3 python3-jsonschema
 	cp -rf freifunk /opt/
-
+	
+	# transfer several constants to update.sh
 	sed -i "s/ip_addr=\".*\"/ip_addr=\"$ip_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/mac_addr=\".*\"/mac_addr=\"$mac_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/community=\".*\"/community=\"$community_id\"/g" /opt/freifunk/update.sh
 	sed -i "s/ff_prefix=\".*\"/ff_prefix=\"$ff_prefix\"/g" /opt/freifunk/update.sh
+	sed -i "s/ipv4_mesh_interface=\".*\"/ipv4_mesh_interface=\"$ipv4_mesh_interface\"/g" /opt/freifunk/update.sh
 }
 
 if [ "$setup_webserver" = "true" ]; then
@@ -149,6 +161,15 @@ if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
 	echo "(I) Add entry to /etc/crontab"
 	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
 fi
+
+{
+	echo "(I) Install DHCP server"
+	apt-get install --assume-yes isc-dhcp-server
+	cp -f etc/dhcp/dhcpd.conf /etc/dhcp/
+	cp -f etc/dhcp/isc-dhcp-server /etc/default/
+	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/dhcp/dhcpd.conf
+	sed -i "s/DHCP_RANGE/$ipv4_dhcp_range/g" /etc/dhcp/dhcpd.conf
+}
 
 {
 	VERSION=2015.0
@@ -328,7 +349,8 @@ if [ "$setup_gateway" = "true" ]; then
 				exit 1
 			;;
 		esac
-
+		# substitute gateway specific IP for DNS on bat0 in routes
+		sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" etc/openvpn/update-route
 		cp etc/openvpn/update-route /etc/openvpn/
 	}
 
