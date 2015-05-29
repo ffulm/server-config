@@ -46,18 +46,22 @@ ip rule add dev nat64 table vpn prio 32565
 ip rule add dev "$mesh_interface" table vpn
 ip route flush table vpn
 # route to vpn tunnel
-ip route add 10.8.0.0/16 dev "$vpn_interface" table vpn
+ip route add 10.8.0.0/16 dev "$vpn_interface"
 ip route add default via "$vpn_gateway_v4" table vpn
 # route dns requests to vpn tunnel
 ip route del DNS_SERVER/32 &> /dev/null
 ip route add DNS_SERVER/32 via "$vpn_gateway_v4" dev "$vpn_interface"
 #
+iptables_a INPUT -i "$vpn_interface" -j ACCEPT
 iptables_a POSTROUTING --table nat -o "$vpn_interface" -j MASQUERADE
 iptables_a FORWARD -i "$mesh_interface" -o "$vpn_interface" -j ACCEPT
+iptables_a FORWARD -i "$vpn_interface" -j ACCEPT
 
 # forward traffic between freifunk and the VPN (if the connection originated in freifunk)
 ip6tables_a FORWARD -i "$vpn_interface" -o "$mesh_interface" -m state --state ESTABLISHED,RELATED -j ACCEPT
 ip6tables_a FORWARD -i "$mesh_interface" -o "$vpn_interface" -j ACCEPT
+iptables_a FORWARD -i "$vpn_interface" -o nat64 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables_a FORWARD -i "$mesh_interface" -o "$vpn_interface" -j ACCEPT
 
 # allow DNS queries through the VPN
 ip6tables_a INPUT -i "$vpn_interface" -p tcp -m tcp --dport domain -m state --state ESTABLISHED -j ACCEPT
@@ -71,6 +75,7 @@ iptables_a FORWARD -i "$vpn_interface" -o nat64 -m state --state ESTABLISHED,REL
 
 # NAT66 all freifunk traffic
 ip6tables_a POSTROUTING --table nat -o "$vpn_interface" -j MASQUERADE
+iptables_a POSTROUTING --table nat -s 10.26.0.0/20 -j MASQUERADE
 
 # Enable MSS clamping
 iptables_a FORWARD -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
