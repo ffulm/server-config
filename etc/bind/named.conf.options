@@ -22,5 +22,5 @@ options {
 
 	# ask mullvad to resolve DNS requests - avoid DNS leaks
 	forwarders { 10.8.0.1; }; # IP of mullvad DNS
-        forward only;
+	forward only;
 };
