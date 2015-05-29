@@ -374,6 +374,7 @@ if [ "$setup_gateway" = "true" ]; then
 		echo "(I) Configure bind"
 		cp -r etc/bind /etc/
 		sed -i "s/fdef:17a0:ffb1:300::1/$ip_addr/g" /etc/bind/named.conf.options
+		sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/bind/named.conf.options
 	}
 
 	#IPv6 Router Advertisments
