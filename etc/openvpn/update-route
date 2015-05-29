@@ -30,16 +30,16 @@ ip route show table vpn &> /dev/null || echo 100 vpn >> /etc/iproute2/rt_tables
 # setup table (v6)
 ip -6 rule del table vpn &> /dev/null
 ip -6 route flush table vpn
-#ip -6 route add fe80::/64 dev tun0 table vpn
-ip -6 route add "$vpn_gateway_v6/64" dev tun0 table vpn
-ip -6 route add 2000::/3 dev tun0 table vpn
+#ip -6 route add fe80::/64 dev "$vpn_interface" table vpn
+ip -6 route add "$vpn_gateway_v6/64" dev "$vpn_interface" table vpn
+ip -6 route add 2000::/3 dev "$vpn_interface" table vpn
 ip -6 rule add dev "$mesh_interface" table vpn prio 32565
 
 # setup table (v4)
 ip rule del table vpn &> /dev/null
 ip route flush table vpn
-ip route add "$vpn_gateway_v4" dev tun0 table vpn
-ip route add default dev tun0 table vpn
+ip route add "$vpn_gateway_v4" dev "$vpn_interface" table vpn
+ip route add default dev "$vpn_interface" table vpn
 ip rule add dev nat64 table vpn prio 32565
 
 # allow to use the gateway for IP v4 - hack 
