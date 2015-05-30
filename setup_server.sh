@@ -337,6 +337,10 @@ if [ "$setup_gateway" = "true" ]; then
 		echo "(I) Install OpenVPN."
 		apt-get install --assume-yes openvpn resolvconf zip
 
+		# make sure openvpn is stopped
+		# otherwise update-route will never be called resulting in missing iptable rules
+		/etc/init.d/openvpn stop
+
 		echo "(I) Configure OpenVPN"
 		#mullvad "tun-ipv6" to their OpenVPN configuration file.
 		case "mullvad" in
