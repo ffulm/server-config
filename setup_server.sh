@@ -349,9 +349,9 @@ if [ "$setup_gateway" = "true" ]; then
 				exit 1
 			;;
 		esac
-		# substitute gateway specific IP for DNS on bat0 in routes
-		sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" etc/openvpn/update-route
 		cp etc/openvpn/update-route /etc/openvpn/
+		# substitute gateway specific IP for DNS on bat0 in routes
+		sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/openvpn/update-route
 	}
 
 	#NAT64
