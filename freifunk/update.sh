@@ -167,7 +167,7 @@ fi
 if [ "$gateway" = "true" ]; then
 	if ! is_running "openvpn"; then
 		echo "(I) Start openvpn."
-		/etc/init.d/openvpn start
+		/etc/init.d/openvpn restart
 	fi
 
 	if ! is_running "tayga"; then
