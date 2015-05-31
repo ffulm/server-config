@@ -14,7 +14,7 @@ name="$(hostname)"
 firmware="server"
 community="ulm"
 webserver="true" #start webserver, create map/status/status page
-gateway="false" #start OpenVPN, bind, tayga, radvd
+gateway="false" #start OpenVPN, bind, tayga, radvd, DHCP, batman gateway mode
 
 
 ##############
