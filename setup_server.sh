@@ -200,9 +200,17 @@ fi
 
 if [ "$setup_webserver" = "true" ] && [ "$setup_statistics" = "true" ]; then
 	echo "stats: Setup statistic client (vnstat/munin)"
+	# get vnstat backend and munin node package
 	apt-get install --assume-yes php5-cgi vnstat munin-node
+	# remove remains of vnstat frontend
+	rm -rf /var/www/vnstat/
+	# get vnstat frontend anew
+	git clone https://github.com/bjd/vnstat-php-frontend /var/www/vnstat/
+	chown www-data.www-data /var/www/vnstat/
+	# copy config
 	cp -f etc/vnstat.conf /etc/
 	cp -f etc/munin/munin-node.conf /etc/munin/
+	cp -f etc/vnstat/config.php /var/www/vnstat/
 	# substitute hostname in munin-node.conf
 	host=`echo $(hostname) | cut -f1 -d"."`
 	sed -i "s/host_name\ vpnX/host_name\ $host/g" /etc/munin/munin-node.conf
