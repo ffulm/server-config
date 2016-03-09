@@ -129,8 +129,11 @@ if [ "$setup_webserver" = "true" ]; then
 	{
 		echo "(I) Install lighttpd"
 		apt-get install --assume-yes lighttpd
-		# generate strong DH primes
-		openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
+		# generate strong DH primes - takes a very long time!
+		# run only if pem file is missing
+		if [ ! -f /etc/ssl/certs/dhparam.pem ]; then
+		  openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
+		fi  
 	}
 
 	{
