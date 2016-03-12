@@ -251,14 +251,14 @@ fi
 }
 
 {
-	VERSION=2015.1
+	VERSION=2016.0
 
 	echo "(I) Install batman-adv, batctl and alfred ($VERSION)."
 	apt-get install --assume-yes wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config
 
 	#install batman-adv
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$VERSION/batman-adv-$VERSION.tar.gz
-	sha256check "batman-adv-$VERSION.tar.gz" "62ff9b769ada746e7a373a048ca8036fbd73f81c63053bbbe25fa24b4343dd0d"
+	sha256check "batman-adv-$VERSION.tar.gz" "7ff5d5e131b0c67deca00176349b62a98cc988df7fd2e90244f2ba288253ae64"
 	tar -xzf batman-adv-$VERSION.tar.gz
 	cd batman-adv-$VERSION/
 	make
@@ -268,7 +268,7 @@ fi
 
 	#install batctl
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$VERSION/batctl-$VERSION.tar.gz
-	sha256check "batctl-$VERSION.tar.gz" "ea67ee22785e6fcd5149472bdf2df4e9f21716968e025e7dd41556a010a8d14a"
+	sha256check "batctl-$VERSION.tar.gz" "1ea0bc6a6541f72bccfc6a18656abac468c80c0213de614460d7482338e0174e"
 	tar -xzf batctl-$VERSION.tar.gz
 	cd batctl-$VERSION/
 	make
@@ -278,7 +278,7 @@ fi
 
 	#install alfred
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$VERSION.tar.gz
-	sha256check "alfred-$VERSION.tar.gz" "e2464175174beeb582564a3487346d6cf5d4de28a23ac04c2ff249099ba2b487"
+	sha256check "alfred-$VERSION.tar.gz" "6e75ebe1d7cd9b8edc58ccc407206cf215787abab14853223597f790d36595fe"
 	tar -xzf alfred-$VERSION.tar.gz
 	cd alfred-$VERSION/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
