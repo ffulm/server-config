@@ -306,15 +306,15 @@ fi
 	apt-get install --assume-yes git cmake-curses-gui libnacl-dev flex bison libcap-dev pkg-config zip libjson-c-dev
 
 	#install libsodium
-	wget --no-check-certificate http://github.com/jedisct1/libsodium/releases/download/1.0.5/libsodium-1.0.5.tar.gz
-	sha256check "libsodium-1.0.5.tar.gz" "bfcafc678c7dac87866c50f9b99aa821750762edcf8e56fc6d13ba0ffbef8bab"
-	tar -xvzf libsodium-1.0.5.tar.gz
-	cd libsodium-1.0.5
+	wget --no-check-certificate http://github.com/jedisct1/libsodium/releases/download/1.0.8/libsodium-1.0.8.tar.gz
+	sha256check "libsodium-1.0.8.tar.gz" "c0f191d2527852641e0a996b7b106d2e04cbc76ea50731b2d0babd3409301926"
+	tar -xvzf libsodium-1.0.8.tar.gz
+	cd libsodium-1.0.8
 	./configure
 	make
 	make install
 	cd ..
-	rm -rf libsodium-1.0.5*
+	rm -rf libsodium-1.0.8*
 	ldconfig
 
 	#install libuecc
