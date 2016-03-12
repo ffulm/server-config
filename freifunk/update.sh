@@ -183,7 +183,9 @@ if [ "$webserver" = "true" ]; then
 	  vnstat -u -i bat0
 	  # grant access for vnstat
 	  chown vnstat.vnstat /var/lib/vnstat/bat0
-	  /etc/init.d/vnstat start
+	  if ! is_running "vnstatd"; then
+	    /etc/init.d/vnstat start
+	  fi
 	fi
 fi
 
