@@ -207,7 +207,7 @@ if [ "$gateway" = "true" ]; then
 
 	if ! is_running "radvd"; then
 		echo "(I) Start radvd."
-		/etc/init.d/radvd start
+		/etc/init.d/radvd restart
 	fi
 	if ! is_running "dhcpd"; then
 		echo "(I) Start DHCP."
