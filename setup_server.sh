@@ -188,7 +188,7 @@ if [ "$setup_webserver" = "true" ]; then
 		# add letsencrypt certificate renewal script to crontab
 		if [ -z "$(cat /etc/crontab | grep '/opt/letsencrypt/check_update_ssl.sh')" ]; then
 			echo "(I) Add certificate check entry to /etc/crontab"
-			echo '0 3 * * * root /opt/letsencrypt/check_update_ssl.sh > /dev/null' >> /etc/crontab
+			echo '0 3 16 * * root /opt/letsencrypt/check_update_ssl.sh > /dev/null' >> /etc/crontab
 		fi
 	}
 
