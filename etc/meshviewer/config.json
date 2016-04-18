@@ -8,7 +8,7 @@
     { "name": "OSM Mapnik",
       "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       "config": {
-        "subdomains": "ab",
+        "subdomains": "abc",
         "type": "osm",
         "attribution": "Map data Tiles &copy; <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">OpenStreetMap</a> contributors, CC-BY-SA",
         "maxZoom": 18
