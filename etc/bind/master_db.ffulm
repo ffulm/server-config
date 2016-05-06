@@ -23,6 +23,7 @@ vpn2.ffulm.				IN	A	10.33.68.1
 vpn1.ffulm.				IN	A	10.33.64.1
 
 ; 10.33.0.0/16 - A records
+map.ffulm.				IN	A	10.33.80.1
 monitor.ffulm.    			IN      A	10.33.99.1
 testsrv.ffulm.    			IN      CNAME	monitor.ffulm.
 daniel.ffulm			   	IN      A       10.33.99.3
