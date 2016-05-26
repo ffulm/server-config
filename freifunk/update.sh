@@ -161,6 +161,16 @@ fi
 if [ "$webserver" = "true" ]; then
 
 	if ! is_running "lighttpd"; then
+                #if [ `ip addr | grep __IPV6__ | wc -l` != 1 ]; then
+                #  echo "(I) Set autoupdater IP for vpn5."
+                #  ip addr add __IPV6__ dev bat0
+                #fi
+                #if [ `ip addr | grep __IPV6__ | wc -l` != 1 ]; then
+                #   # EUI64: ip v6 prefix + 3 bytes MAC + fffe + 3 bytes MAC
+                #  echo "(I) Set IP for accessing vpn5 from node status page."
+                #  ip addr add __IPV6__ dev bat0
+                #  sleep 1
+                #fi
 		echo "(I) Start lighttpd."
 		/etc/init.d/lighttpd start
 	fi
