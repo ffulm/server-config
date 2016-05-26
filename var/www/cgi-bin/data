@@ -1,0 +1,4 @@
+#!/bin/bash
+echo -en "Access-Control-Allow-Origin: *\r\n"
+echo -en "content-type: text/plain\r\n\r\n"
+echo -en '{"name":"SERVERNAME.ffulm"}'
