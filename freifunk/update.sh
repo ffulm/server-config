@@ -29,6 +29,30 @@ export PATH=$PATH:/usr/local/sbin:/usr/local/bin
 #switch script directory
 cd "$(dirname $0)"
 
+#create an IPv6 ULA-address based on EUI-64
+ula_addr()
+{
+        local prefix a prefix="$1" mac="$2" invert=${3:-0}
+
+        #prefix="$(uci get network.globals.ula_prefix)"
+
+        if [ $invert -eq 1 ]; then
+                # translate to local administered mac
+                a=${mac%%:*} #cut out first hex
+                a=$((0x$a ^ 2)) #invert second least significant bit
+                a=$(printf '%02x\n' $a) #convert back to hex
+                mac="$a:${mac#*:}" #reassemble mac
+        fi
+
+        mac=${mac//:/} # remove ':'
+        mac=${mac:0:6}fffe${mac:6:6} # insert ffee
+        mac=$(echo $mac | sed 's/..../&:/g') # insert ':'
+
+        # assemble IPv6 address
+        echo "${prefix%%::*}:${mac%?}"
+}
+
+
 #limit name length
 name="$(echo $name | cut -c 1-31)"
 
@@ -72,6 +96,13 @@ if [ "$(cat /sys/class/net/bat0/address 2> /dev/null)" != "$mac_addr" ]; then
 	#set IPv4 address on bat0 for DNS; This is gateway specific!
 	ip addr add "$ipv4_mesh_interface/16" dev bat0 2> /dev/null && echo "(I) Add IPv4-Address $ipv4_mesh_interface to bat0"
 
+
+        # Add IPv6 address the same way the routers do.
+        # This makes the address consistent with the one used on the routers status page.
+        macaddr="$(cat /sys/kernel/debug/batman_adv/bat0/originators | awk -F'[/ ]' '{print $7; exit;}')"
+        ipaddr="$(ula_addr $ff_prefix $macaddr)"
+        ip a a "$ipaddr/64" dev bat0
+
 	# we do not accept a default gateway through bat0
 	echo 0 > /proc/sys/net/ipv6/conf/bat0/accept_ra
 
@@ -96,7 +127,6 @@ if [ "$(cat /sys/class/net/bat0/address 2> /dev/null)" != "$mac_addr" ]; then
 	sysctl -w net.ipv6.neigh.default.gc_thresh1=$(($gc_thresh * 1))
 	sysctl -w net.ipv6.neigh.default.gc_thresh2=$(($gc_thresh * 2))
 	sysctl -w net.ipv6.neigh.default.gc_thresh3=$(($gc_thresh * 4))
-
 fi
 
 if ip -6 addr add "$ip_addr/64" dev bat0 2> /dev/null; then
