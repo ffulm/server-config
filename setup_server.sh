@@ -182,7 +182,9 @@ if [ "$setup_webserver" = "true" ]; then
                 cd ..
                 # destroy build
                 rm -rf meshviewer
-
+		
+		echo "(I) substitute hostname in JSON info file"
+		sed -i "s/SERVERNAME/$(hostname)/g" /var/www/cgi-bin/data
 
 		chown -R www-data:www-data /var/www
 	}
