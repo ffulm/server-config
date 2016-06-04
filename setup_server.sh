@@ -337,7 +337,7 @@ fi
 	ldconfig
 
 	#install libuecc
-	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/83 -O libuecc-7.tar.xz
+	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/85 -O libuecc-7.tar.xz
 	sha256check "libuecc-7.tar.xz" "b94aef08eab5359d0facaa7ead2ce81b193eef0c61379d9835213ebc0a46257a"
 	tar xf libuecc-7.tar.xz
 	mkdir libuecc_build
@@ -350,7 +350,7 @@ fi
 	ldconfig
 
 	#install fastd
-	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/81 -O fastd-18.tar.xz
+	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/86 -O fastd-18.tar.xz
 	sha256check "fastd-18.tar.xz" "714ff09d7bd75f79783f744f6f8c5af2fe456c8cf876feaa704c205a73e043c9"
 	tar xf fastd-18.tar.xz
 	mkdir fastd_build
