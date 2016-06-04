@@ -270,14 +270,14 @@ fi
 }
 
 {
-	VERSION=2016.0
+	VERSION=2016.1
 
 	echo "(I) Install batman-adv, batctl and alfred ($VERSION)."
 	apt-get install --assume-yes wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config
 
 	#install batman-adv
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$VERSION/batman-adv-$VERSION.tar.gz
-	sha256check "batman-adv-$VERSION.tar.gz" "7ff5d5e131b0c67deca00176349b62a98cc988df7fd2e90244f2ba288253ae64"
+	sha256check "batman-adv-$VERSION.tar.gz" "518dc228dfd3fcc1ea1c6af7c32aceb19ab67810983d82473891ce3605daa072"
 	tar -xzf batman-adv-$VERSION.tar.gz
 	cd batman-adv-$VERSION/
 	make
@@ -287,7 +287,7 @@ fi
 
 	#install batctl
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$VERSION/batctl-$VERSION.tar.gz
-	sha256check "batctl-$VERSION.tar.gz" "1ea0bc6a6541f72bccfc6a18656abac468c80c0213de614460d7482338e0174e"
+	sha256check "batctl-$VERSION.tar.gz" "c854397b2ddd2cb8d15d1e65839819380648ccb37507d0303e133011fe6f03c9"
 	tar -xzf batctl-$VERSION.tar.gz
 	cd batctl-$VERSION/
 	make
@@ -297,7 +297,7 @@ fi
 
 	#install alfred
 	wget --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$VERSION.tar.gz
-	sha256check "alfred-$VERSION.tar.gz" "6e75ebe1d7cd9b8edc58ccc407206cf215787abab14853223597f790d36595fe"
+	sha256check "alfred-$VERSION.tar.gz" "7e0efaf263d6772e5e23bdad933f676951cd03124382e6dbae53a7b9431d2609"
 	tar -xzf alfred-$VERSION.tar.gz
 	cd alfred-$VERSION/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
@@ -325,41 +325,41 @@ fi
 	apt-get install --assume-yes git cmake-curses-gui libnacl-dev flex bison libcap-dev pkg-config zip libjson-c-dev
 
 	#install libsodium
-	wget --no-check-certificate http://github.com/jedisct1/libsodium/releases/download/1.0.8/libsodium-1.0.8.tar.gz
-	sha256check "libsodium-1.0.8.tar.gz" "c0f191d2527852641e0a996b7b106d2e04cbc76ea50731b2d0babd3409301926"
-	tar -xvzf libsodium-1.0.8.tar.gz
-	cd libsodium-1.0.8
+	wget --no-check-certificate http://github.com/jedisct1/libsodium/releases/download/1.0.10/libsodium-1.0.10.tar.gz
+	sha256check "libsodium-1.0.10.tar.gz" "71b786a96dd03693672b0ca3eb77f4fb08430df307051c0d45df5353d22bc4be"
+	tar -xvzf libsodium-1.0.10.tar.gz
+	cd libsodium-1.0.10
 	./configure
 	make
 	make install
 	cd ..
-	rm -rf libsodium-1.0.8*
+	rm -rf libsodium-1.0.10*
 	ldconfig
 
 	#install libuecc
-	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/83 -O libuecc-6.tar.xz
-	sha256check "libuecc-6.tar.xz" "a9728cf7f18968dba3930ffede7721a5a11a1fecabe2193ec4d2d63e54ceb3fb"
-	tar xf libuecc-6.tar.xz
+	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/83 -O libuecc-7.tar.xz
+	sha256check "libuecc-7.tar.xz" "b94aef08eab5359d0facaa7ead2ce81b193eef0c61379d9835213ebc0a46257a"
+	tar xf libuecc-7.tar.xz
 	mkdir libuecc_build
 	cd libuecc_build
-	cmake ../libuecc-6
+	cmake ../libuecc-7
 	make
 	make install
 	cd ..
-	rm -rf libuecc_build libuecc-6*
+	rm -rf libuecc_build libuecc-7*
 	ldconfig
 
 	#install fastd
-	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/81 -O fastd-17.tar.xz
-	sha256check "fastd-17.tar.xz" "26d4a8bf2f8cc52872f836f6dba55f3b759f8c723699b4e4decaa9340d3e5a2d"
-	tar xf fastd-17.tar.xz
+	wget --no-check-certificate https://projects.universe-factory.net/attachments/download/81 -O fastd-18.tar.xz
+	sha256check "fastd-18.tar.xz" "714ff09d7bd75f79783f744f6f8c5af2fe456c8cf876feaa704c205a73e043c9"
+	tar xf fastd-18.tar.xz
 	mkdir fastd_build
 	cd fastd_build
-	cmake ../fastd-17
+	cmake ../fastd-18
 	make
 	make install
 	cd ..
-	rm -rf fastd_build fastd-17*
+	rm -rf fastd_build fastd-18*
 }
 
 {
