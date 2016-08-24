@@ -100,9 +100,10 @@ if [ "$(cat /sys/class/net/bat0/address 2> /dev/null)" != "$mac_addr" ]; then
         # Add IPv6 address the same way the routers do.
         # This makes the address consistent with the one used on the routers status page.
         macaddr="$(cat /sys/kernel/debug/batman_adv/bat0/originators | awk -F'[/ ]' '{print $7; exit;}')"
-        ipaddr="$(ula_addr $ff_prefix $macaddr)"
-        ip a a "$ipaddr/64" dev bat0
-
+        euiaddr="$(ula_addr $ff_prefix $macaddr)"
+        echo "(I) Set EUI64-Address: $euiaddr"
+        ip a a "$euiaddr/64" dev bat0
+        
 	# we do not accept a default gateway through bat0
 	echo 0 > /proc/sys/net/ipv6/conf/bat0/accept_ra
 
