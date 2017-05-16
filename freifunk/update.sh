@@ -13,9 +13,13 @@ geo=""
 name="$(hostname)"
 firmware="server"
 community="ulm"
-webserver="true" #start webserver, create map/status/status page
-gateway="false" #start OpenVPN, bind, tayga, radvd, DHCP, batman gateway mode
-statistics="true" #start and setup statistical output
+
+# run?
+run_mesh=0
+run_gateway=0
+run_icvpn=0
+run_map=0
+run_stats=0
 
 
 ##############
@@ -156,7 +160,7 @@ fi
 
 #announce status website via alfred
 {
-	echo -n "{\"link\" : \"http://[$ip_addr]/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
+	echo -n "{\"link\" : \"https://map.freifunk-ulm.de/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
 } | alfred -s 91 -u /var/run/alfred/alfred.sock
 
 
