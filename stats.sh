@@ -8,7 +8,7 @@ case "$munin_type" in
   "client")
 	echo "(I) ${green} Setup statistic client (munin)${col_reset}"
 	# get munin node package
-	apt-get install --assume-yes munin-node
+	apt install --assume-yes munin-node
 	cp -f etc/munin/munin-node.conf /etc/munin/
 	# substitute hostname in munin-node.conf
 	sed -i "s/host_name\ vpnX/host_name\ $ff_servername/g" /etc/munin/munin-node.conf
@@ -19,7 +19,7 @@ case "$munin_type" in
   "server") 
 	echo "(I) ${green} Setup statistic server (munin)${col_reset}"
 	# get munin package
-	apt-get --assume-yes install munin
+	apt --assume-yes install munin
 
 	cp -f etc/munin/munin.conf /etc/munin/
 
@@ -38,7 +38,7 @@ esac
 #{
 	# get vnstat backend
 	#echo "(I) ${green} Setup statistic client (vnstat)${col_reset}"
-	#apt-get install --assume-yes php5-cgi vnstat 
+	#apt install --assume-yes php5-cgi vnstat 
 	# remove remains of vnstat frontend
 	#rm -rf /var/www/vnstat/
 	# get vnstat frontend anew

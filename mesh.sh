@@ -14,7 +14,7 @@ echo "${green}***************************${col_reset}"
 
 {
 	echo "(I) ${green}Install batman-adv, batctl and alfred ($batman_version).${col_reset}"
-	apt-get install --assume-yes wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev
+	apt install --assume-yes wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
@@ -62,7 +62,7 @@ echo "${green}***************************${col_reset}"
 {
 	echo "(I) ${green}Install fastd prerequisites${col_reset}"
 
-	apt-get install --assume-yes git cmake-curses-gui libnacl-dev flex bison libcap-dev pkg-config zip libjson-c-dev
+	apt install --assume-yes git cmake-curses-gui libnacl-dev flex bison libcap-dev pkg-config zip libjson-c-dev
 
 	echo "(I) ${green}Build and install libsodium${col_reset}"
 

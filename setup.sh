@@ -177,8 +177,8 @@ if [ -z "$mac_addr" -o -z "$ip_addr" ]; then
 	exit 1
 fi
 
-echo "(I) ${green}Update package database${col_reset}"
-apt-get update
+echo "(I) ${green}Update package database${col_reset}
+apt update
 
 if [ $setup_mesh -eq 1 ]; then ( . ./mesh.sh ) # source script in separate shell
 fi

@@ -13,7 +13,7 @@ echo "${green}****************************${col_reset}"
 
 	#only really needed for a gateway
 	echo "(I) ${green}Installing persistent iptables${col_reset}"
-	apt-get install --assume-yes iptables-persistent
+	apt install --assume-yes iptables-persistent
 
 	cp -rf etc/iptables/* /etc/iptables/
 	/etc/init.d/netfilter-persistent restart
@@ -58,7 +58,7 @@ setup_mullvad() {
 #OpenVPN
 {
 	echo "(I) ${green}Install OpenVPN.${col_reset}"
-	apt-get install --assume-yes openvpn resolvconf zip
+	apt install --assume-yes openvpn resolvconf zip
 
 	# make sure openvpn is stopped
 	# otherwise update-route will never be called resulting in missing iptable rules
@@ -83,7 +83,7 @@ setup_mullvad() {
 #NAT64
 {
 	echo "(I) ${green}Install tayga.${col_reset}"
-	apt-get install --assume-yes tayga
+	apt install --assume-yes tayga
 
 	#enable tayga
 	sed -i 's/RUN="no"/RUN="yes"/g' /etc/default/tayga
@@ -95,7 +95,7 @@ setup_mullvad() {
 #DNS64
 {
 	echo "(I) ${green}Install bind.${col_reset}"
-	apt-get install --assume-yes bind9
+	apt install --assume-yes bind9
 
 	echo "(I) ${green}Configure bind${col_reset}"
 	# copy config files to destination
@@ -110,7 +110,7 @@ setup_mullvad() {
 #IPv6 Router Advertisments
 {
 	echo "(I) ${green}Install radvd.${col_reset}"
-	apt-get install --assume-yes radvd
+	apt install --assume-yes radvd
 
 	echo "(I) ${green}Configure radvd${col_reset}"
 	cp etc/radvd.conf /etc/
@@ -121,7 +121,7 @@ setup_mullvad() {
 #IPv4 DHCP
 {
 	echo "(I) ${green}Install DHCP server${col_reset}"
-	apt-get install --assume-yes isc-dhcp-server
+	apt install --assume-yes isc-dhcp-server
 	cp -f etc/dhcp/dhcpd.conf /etc/dhcp/
 	cp -f etc/dhcp/isc-dhcp-server /etc/default/
 	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/dhcp/dhcpd.conf

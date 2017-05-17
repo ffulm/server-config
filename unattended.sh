@@ -8,7 +8,7 @@ echo "${green}******************************${col_reset}"
 
 {
         echo "(I) ${green}Install unattended updates packages${col_reset}"
-	apt-get install --assume-yes unattended-upgrades apticron
+	apt install --assume-yes unattended-upgrades apticron
 
         echo "(I) ${green}Install config${col_reset}"
 	cp -r etc/apt/* /etc/apt/apt.conf.d/
