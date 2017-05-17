@@ -4,10 +4,11 @@
 
 # 1. mesh (fastd, batman, alfred)
 # 2. gateway (radvd, tayga, openvpn, dns, dhcp, batman gateway mode)
-# 3. icvpn (bird, tinc)
-# 4. map (ffmap, meshviewer)
-# 5. stats (munin client)
-# 6. unattended upgrades of debian packages (keeps your server save!)
+# 3. webserver (lighttpd for status page, map pages)
+# 4. icvpn (bird, tinc)
+# 5. map (ffmap, meshviewer)
+# 6. stats (munin client)
+# 7. unattended upgrades of debian packages (keeps your server save!)
 
 # DO NOT CALL THE SCRIPTS IN STANDALONE MODE as this will NOT WORK!
 
@@ -43,7 +44,7 @@ ff_prefix="fdef:17a0:fff1:300::"
 ####################
 
 # Run setup? 
-setup_mesh=0
+setup_mesh=1
 
 # Secret key for fastd (will be generated if not provided).
 fastd_secret=""
@@ -68,8 +69,21 @@ ipv4_mesh_interface="10.33.10.1"
 # Enter space separated IP range: xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
 ipv4_dhcp_range="10.33.10.2 10.33.13.255"
 
+# VPN Provider ( mullvad / airvpn )
+# expects zipped config files for vpn tunnel in script directory
+vpn_provider="airvpn"
+
+
+#########################
+# 3. webserver settings #
+#########################
+
+# Run setup? 
+setup_webserver=1
+
+
 #####################
-# 3. ICVPN settings #
+# 4. ICVPN settings #
 #####################
 
 # Run setup? 
@@ -77,7 +91,7 @@ setup_icvpn=0
 
 
 ###################
-# 4. map settings #
+# 5. map settings #
 ###################
 
 # run setup? 
@@ -85,7 +99,7 @@ setup_map=0
 
 
 #####################
-# 5. stats settings #
+# 6. stats settings #
 #####################
 
 # run setup? 
@@ -99,11 +113,11 @@ munin_type=client
 
 
 #########################
-# 6. unattended upgrade #
+# 7. unattended upgrade #
 #########################
 
 # run setup? 
-setup_unattended=0
+setup_unattended=1
 
 
 
@@ -177,12 +191,14 @@ if [ -z "$mac_addr" -o -z "$ip_addr" ]; then
 	exit 1
 fi
 
-echo "(I) ${green}Update package database${col_reset}
-apt update
+echo "(I) ${green}Update package database${col_reset}"
+#apt update
 
 if [ $setup_mesh -eq 1 ]; then ( . ./mesh.sh ) # source script in separate shell
 fi
 if [ $setup_gateway -eq 1 ]; then ( . ./gateway.sh ) # source script in separate shell
+fi
+if [ $setup_webserver -eq 1 ]; then ( . ./webserver.sh ) # source script in separate shell
 fi
 if [ $setup_icvpn -eq 1 ]; then ( . ./icvpn.sh ) # source script in separate shell
 fi
@@ -218,7 +234,7 @@ fi
 #	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
 #fi
 
-#/opt/freifunk/update.sh
+/opt/freifunk/update.sh
 
 echo "setup done"
 

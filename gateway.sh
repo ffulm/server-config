@@ -55,6 +55,44 @@ setup_mullvad() {
 	sed -i 's/^#remote se.mullvad.net/remote se.mullvad.net/' /etc/openvpn/mullvad_linux.conf
 }
 
+
+
+setup_airvpn() {
+	local airvpn_zip="$1"
+	local tmp_dir="/tmp/airvpnconfig"
+	if [ ! -f "$airvpn_zip" ]; then
+		echo "(E) ${red}Airvpn zip file missing: $airvpn_zip${col_reset}"
+		exit 1
+	fi
+	#unzip and copy files to OpenVPN
+	rm -rf $tmp_dir
+	mkdir -p $tmp_dir
+	unzip $airvpn_zip -d $tmp_dir
+	cp $tmp_dir/*.ovpn /etc/openvpn
+	cp $tmp_dir/user.key /etc/openvpn
+	# set restrictive access rights on key file
+	chmod 600 /etc/openvpn/user.key
+	cp $tmp_dir/user.crt /etc/openvpn
+	cp $tmp_dir/ca.crt /etc/openvpn
+	cp $tmp_dir/ta.key /etc/openvpn
+	rm -rf $tmp_dir
+
+	#prevent OpenVPN from setting routes
+	echo "route-noexec" >> /etc/openvpn/AirVPN_*.ovpn
+
+	# prevent OpenVPN from changing nameservers in resolv.conf
+        #sed -i "s|up /etc/openvpn/update-resolv-conf|#up /etc/openvpn/update-resolv-conf|g" /etc/openvpn/airvpn_linux.conf
+        #sed -i "s|down /etc/openvpn/update-resolv-conf|#down /etc/openvpn/update-resolv-conf|g" /etc/openvpn/airvpn_linux.conf
+
+	#set a script that will set routes
+	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/AirVPN_*.ovpn
+		
+	#use servers in Sweden only
+	#sed -i 's/^remote /#remote /' /etc/openvpn/airvpn_linux.conf
+	#sed -i 's/^#remote se.airvpn.net/remote se.airvpn.net/' /etc/openvpn/airvpn_linux.conf
+}
+
+
 #OpenVPN
 {
 	echo "(I) ${green}Install OpenVPN.${col_reset}"
@@ -65,19 +103,24 @@ setup_mullvad() {
 	/etc/init.d/openvpn stop
 
 	echo "(I) ${green}Configure OpenVPN${col_reset}"
-	#mullvad "tun-ipv6" to their OpenVPN configuration file.
-	case "mullvad" in
+	case "$vpn_provider" in
 		"mullvad")
-#			setup_mullvad "mullvadconfig.zip"
+			setup_mullvad "mullvadconfig.zip"
+		;;
+		"airvpn")
+			setup_airvpn "AirVPN.zip"
 		;;
 		*)
-			echo "(E) ${red}Unknown argument${col_reset}"
+			echo "(E) ${red}Provide vpn provider string in setup.sh${col_reset}"
 			exit 1
 		;;
 	esac
 	cp etc/openvpn/update-route /etc/openvpn/
 	# substitute gateway specific IP for DNS on bat0 in routes
 	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/openvpn/update-route
+
+	# start OpenVPN
+	# ...will be started in update.sh
 }
 
 #NAT64
