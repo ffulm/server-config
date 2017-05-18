@@ -52,3 +52,6 @@ esac
 	# grant access for vnstat
 	#chown vnstat.vnstat /var/lib/vnstat/eth0
 #}
+
+
+exit 0

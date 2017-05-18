@@ -23,3 +23,5 @@ echo "${green}************************${col_reset}"
 # Install tinc
 #{
 #}
+
+exit 0

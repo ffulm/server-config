@@ -14,7 +14,7 @@
 
 #
 # Please note:
-# Toggling the setup_xxxx variables back to 0 later does not _uninstall_ the software, but _skips_
+# Toggling the setup_xxxx variables below back to 0 later does not _uninstall_ the software, but _skips_
 # the _re-installation_ of this block. No further data updates will be performed by freifunk/update.sh for this block.
 #
 # BUT: Remaining server processes have to be manually stopped as needed. They are not killed by a 0 setting. 
@@ -26,17 +26,18 @@
 # General settings #
 ####################
 
-# The server's internet interface. "eth0" should be a save choice in most cases.
+# The server's internet-connected network interface. "eth0" should be a save choice in most cases.
 wan_iface="eth0"
 
-# The community identifier.
+# The community identifier for internal purposes
 community_id="ulm"
+# The community identifier which shows up on websites, lists, meshviewer... 
 community_name="Ulm"
 
 # This server's name. Please stick to the vpnXX scheme. E.g. vpn10, vpn11, ...
 ff_servername="vpn10"
 
-# The internal IPv6 prefix as defined in Freifunk community wiki.
+# The internal IPv6 prefix as defined in the Freifunk community wiki.
 ff_prefix="fdef:17a0:fff1:300::"
 
 ####################
@@ -44,9 +45,10 @@ ff_prefix="fdef:17a0:fff1:300::"
 ####################
 
 # Run setup? 
-setup_mesh=1
+setup_mesh=0
 
 # Secret key for fastd (will be generated if not provided).
+# Please keep in mind that the _public_ part of this key must be known to other gateways and routers to establish a connection
 fastd_secret=""
 
 # B.A.T.M.A.N version
@@ -57,7 +59,7 @@ batman_version=2017.0
 #######################
 
 # Run setup? 
-setup_gateway=1
+setup_gateway=0
 
 # IP v4 for mesh interface.
 # This is gateway specific. Get your IP by writing to the mailing list!
@@ -69,14 +71,21 @@ ipv4_mesh_interface="10.33.10.1"
 # Enter space separated IP range: xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
 ipv4_dhcp_range="10.33.10.2 10.33.13.255"
 
-# VPN Provider ( mullvad / airvpn )
-# expects zipped config files for vpn tunnel in script directory
+# VPN Provider
+# expects zipped config files for vpn tunnel in scripts base directory
+# possible values: mullvad, airvpn
 vpn_provider="airvpn"
 
 
 #########################
 # 3. webserver settings #
 #########################
+
+# A webserver is needed to display map and statistical information (e.g. map, munin stats). 
+# Furthermore it is mandatory if users should be able to click on their router's "neighbourhood link" and 
+# jump to the gateway they are connected with.
+
+# The save choice is to setup a webservice.
 
 # Run setup? 
 setup_webserver=1
@@ -86,6 +95,9 @@ setup_webserver=1
 # 4. ICVPN settings #
 #####################
 
+# InterCity VPN interconnects all Freifunk subnets by using "Big Internet Technology" (AS, BGP, et. al.)
+# Is not mandatory.
+
 # Run setup? 
 setup_icvpn=0
 
@@ -93,6 +105,8 @@ setup_icvpn=0
 ###################
 # 5. map settings #
 ###################
+
+# sets up map features on the gateway.
 
 # run setup? 
 setup_map=0
@@ -108,7 +122,10 @@ setup_stats=0
 # munin host
 munin_host=map.freifunk-ulm.de
 
-# munin type (client / server). Stick to client until you are told otherwise.
+# munin type 
+# possible values: client, server
+# Stick to client until you are told otherwise.
+
 munin_type=client
 
 
@@ -223,6 +240,7 @@ fi
         # transfer run state to update.sh
 	sed -i "s/run_mesh=.*/run_mesh=$setup_mesh/g" /opt/freifunk/update.sh
 	sed -i "s/run_gateway=.*/run_gateway=$setup_gateway/g" /opt/freifunk/update.sh
+	sed -i "s/run_webserver=.*/run_webserver=$setup_webserver/g" /opt/freifunk/update.sh
 	sed -i "s/run_icvpn=.*/run_icvpn=$setup_icvpn/g" /opt/freifunk/update.sh
 	sed -i "s/run_map=.*/run_map=$setup_map/g" /opt/freifunk/update.sh
 	sed -i "s/run_stats=.*/run_stats=$setup_stats/g" /opt/freifunk/update.sh
@@ -230,7 +248,7 @@ fi
 }
 
 #if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
-#	echo "(I) Add update.sh entry to /etc/crontab"
+#	echo "(I) ${green}Add update.sh entry to /etc/crontab${col_reset}"
 #	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
 #fi
 
