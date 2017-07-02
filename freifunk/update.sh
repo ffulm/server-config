@@ -156,7 +156,7 @@ if [ $run_mesh = 1 ]; then
 		chown alfred.alfred /var/run/alfred/
 		echo "(I) Start alfred."
 		# set umask of socket from 0117 to 0111 so that data can be pushed to alfred.sock below
-                start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid --umask 0111 --make-pidfile --chuid alfred:alfred --background --exec `which alfred` --oknodo -- -i bat0 -u /var/run/alfred/alfred.sock
+                start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid --umask 0111 --make-pidfile --chuid alfred:alfred --exec `which alfred` --oknodo -- -i bat0 -u /var/run/alfred/alfred.sock
 		# wait for alfred to start up...
                 sleep 1
 	fi
