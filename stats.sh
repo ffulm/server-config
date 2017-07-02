@@ -23,7 +23,10 @@ case "$munin_type" in
 
 	cp -f etc/munin/munin.conf /etc/munin/
 
-#missing webserver
+	# create webroot even if no webserver installed
+        mkdir -p /var/www/munin/
+	chown www-data.www-data /var/www/munin/
+	# link to it
 	ln -s /var/cache/munin/www/ /var/www/munin
 
 	/etc/init.d/munin restart
@@ -34,7 +37,7 @@ case "$munin_type" in
 	;;
 esac
 
-
+# DEACTIVATED
 #{
 	# get vnstat backend
 	#echo "(I) ${green} Setup statistic client (vnstat)${col_reset}"

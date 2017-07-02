@@ -18,7 +18,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
-	sha256check "batman-adv-$batman_version.tar.gz" "65df01222bc51ec788fb1b6dc63feaf69d393f2d0a96e347d55de83b1602c509"
+	sha256check "batman-adv-$batman_version.tar.gz" "ec1848023308c41710eeefb544580f5853d68b88a627a3f2dabaa3472b988c15"
 	tar -xzf batman-adv-$batman_version.tar.gz
 	cd batman-adv-$batman_version/
 	make
@@ -28,7 +28,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batctl
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batctl-$batman_version.tar.gz
-	sha256check "batctl-$batman_version.tar.gz" "c0bb1127d6070b46abeb8d6a63d1150d71fa85f87f9a846873b649a21934c686"
+	sha256check "batctl-$batman_version.tar.gz" "f8311c67e448dac38f26f8a573e7c44fde65f1fee69754ccf1a070a5622aabc6"
 	tar -xzf batctl-$batman_version.tar.gz
 	cd batctl-$batman_version/
 	make
@@ -38,7 +38,7 @@ echo "${green}***************************${col_reset}"
 
 	#install alfred
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$batman_version.tar.gz
-	sha256check "alfred-$batman_version.tar.gz" "f8d6d83d2ce30b2238354ce12073285387c0f4ca1a28060390ff50b411b50fa8"
+	sha256check "alfred-$batman_version.tar.gz" "f8d3a8058d076f6b7686696f6117de1780a2905d827dfa7faa3c2c0b24c2dfb0"
 	tar -xzf alfred-$batman_version.tar.gz
 	cd alfred-$batman_version/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
@@ -67,7 +67,7 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libsodium${col_reset}"
 
 	#install libsodium
-	wget -N --no-check-certificate http://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz
+	wget -N --no-check-certificate -O libsodium-1.0.12.tar.gz http://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz
 	sha256check "libsodium-1.0.12.tar.gz" "b8648f1bb3a54b0251cf4ffa4f0d76ded13977d4fa7517d988f4c902dd8e2f95"
 	tar -xvzf libsodium-1.0.12.tar.gz
 	cd libsodium-1.0.12

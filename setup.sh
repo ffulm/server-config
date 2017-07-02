@@ -35,7 +35,7 @@ community_id="ulm"
 community_name="Ulm"
 
 # This server's name. Please stick to the vpnXX scheme. E.g. vpn10, vpn11, ...
-ff_servername="vpn10"
+ff_servername="vpnXX"
 
 # The internal IPv6 prefix as defined in the Freifunk community wiki.
 ff_prefix="fdef:17a0:fff1:300::"
@@ -45,14 +45,14 @@ ff_prefix="fdef:17a0:fff1:300::"
 ####################
 
 # Run setup? 
-setup_mesh=0
+setup_mesh=1
 
 # Secret key for fastd (will be generated if not provided).
-# Please keep in mind that the _public_ part of this key must be known to other gateways and routers to establish a connection
+# Please keep in mind that the _public_ part of this key pair must be known to other gateways and routers to establish a connection
 fastd_secret=""
 
 # B.A.T.M.A.N version
-batman_version=2017.0
+batman_version=2017.1
 
 #######################
 # 2. Gateway settings #
@@ -64,12 +64,12 @@ setup_gateway=0
 # IP v4 for mesh interface.
 # This is gateway specific. Get your IP by writing to the mailing list!
 # Format: xxx.xxx.xxx.xxx
-ipv4_mesh_interface="10.33.10.1"
+ipv4_mesh_interface=""
 
 # Range for DHCP
 # This is gateway specific. Get your DHCP range by writing to the mailing list!
 # Enter space separated IP range: xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
-ipv4_dhcp_range="10.33.10.2 10.33.13.255"
+ipv4_dhcp_range=""
 
 # VPN Provider
 # expects zipped config files for vpn tunnel in scripts base directory
@@ -88,7 +88,7 @@ vpn_provider="airvpn"
 # The save choice is to setup a webservice.
 
 # Run setup? 
-setup_webserver=1
+setup_webserver=0
 
 
 #####################
@@ -139,10 +139,9 @@ setup_unattended=1
 
 
 
-
 # Everything set up ? 
 # set run to 1 for this script to run. :-)
-run=1
+run=0
 
 
 ################################################################
@@ -209,7 +208,8 @@ if [ -z "$mac_addr" -o -z "$ip_addr" ]; then
 fi
 
 echo "(I) ${green}Update package database${col_reset}"
-#apt update
+### UNCOMMENT
+apt update
 
 if [ $setup_mesh -eq 1 ]; then ( . ./mesh.sh ) # source script in separate shell
 fi
@@ -231,11 +231,12 @@ fi
 	cp -rf freifunk /opt/
 
         # transfer several constants to update.sh
-	sed -i "s/ip_addr=\".*\"/ip_addr=\"$ip_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/mac_addr=\".*\"/mac_addr=\"$mac_addr\"/g" /opt/freifunk/update.sh
-	sed -i "s/community=\".*\"/community=\"$community_id\"/g" /opt/freifunk/update.sh
+	sed -i "s/ip_addr=\".*\"/ip_addr=\"$ip_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/ff_prefix=\".*\"/ff_prefix=\"$ff_prefix\"/g" /opt/freifunk/update.sh
 	sed -i "s/ipv4_mesh_interface=\".*\"/ipv4_mesh_interface=\"$ipv4_mesh_interface\"/g" /opt/freifunk/update.sh
+
+	sed -i "s/community=\".*\"/community=\"$community_id\"/g" /opt/freifunk/update.sh
 
         # transfer run state to update.sh
 	sed -i "s/run_mesh=.*/run_mesh=$setup_mesh/g" /opt/freifunk/update.sh
@@ -247,10 +248,11 @@ fi
 
 }
 
-#if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
-#	echo "(I) ${green}Add update.sh entry to /etc/crontab${col_reset}"
-#	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
-#fi
+### UNCOMMENT
+if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
+	echo "(I) ${green}Add update.sh entry to /etc/crontab${col_reset}"
+	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
+fi
 
 /opt/freifunk/update.sh
 

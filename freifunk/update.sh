@@ -12,6 +12,7 @@ ipv4_mesh_interface=""
 geo=""
 name="$(hostname)"
 firmware="server"
+community=""
 
 # run?
 run_mesh=0
@@ -146,22 +147,18 @@ if [ $run_mesh = 1 ]; then
 
 	if ! is_running "alfred"; then
 		# remove remains
-		rm -f /var/run/alfred/*
+		rm -rf /var/run/alfred
 		# set minimum access rights for reading information out of kernel debug interface
 		chown root.alfred /sys/kernel/debug
 		chmod 750 /sys/kernel/debug
 		# create separate run dir with appropriate access rights because it gets deleted with every reboot
 		mkdir --parents --mode=775 /var/run/alfred/
 		chown alfred.alfred /var/run/alfred/
-		# wait for changes to settle before starting up alfred... 
-		sleep 3
 		echo "(I) Start alfred."
-		# set umask of socket from 0117 to 0111 so that update.sh can access alfred.sock
-		start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid \
-			--umask 0111 --make-pidfile --chuid alfred --group alfred \
-			--background --exec `which alfred` --oknodo \
-			-- -i bat0 -u /var/run/alfred/alfred.sock
-		sleep 1
+		# set umask of socket from 0117 to 0111 so that data can be pushed to alfred.sock below
+                start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid --umask 0111 --make-pidfile --chuid alfred:alfred --background --exec `which alfred` --oknodo -- -i bat0 -u /var/run/alfred/alfred.sock
+		wait for alfred to start up...
+                sleep 1
 	fi
 
 	#announce status website via alfred
@@ -171,32 +168,96 @@ if [ $run_mesh = 1 ]; then
 
 
 	#announce map information via alfred
+	
+	# do we have a tunnel to the internet ?
+	if [ $run_gateway = 1 ]; 
+	  then gateway="true" 
+	  else gateway="false" 
+	fi
+        # do we have fastd ?
+	if [ $run_mesh = 1 ]; 
+	  then vpn="true"
+	  else vpn="false"
+	fi
 	{
-		vpn="true"
 		echo -n "{"
 		[ -n "$geo" ] && echo -n "\"geo\" : \"$geo\", "
 		[ -n "$name" ] && echo -n "\"name\" : \"$name\", "
 		[ -n "$firmware" ] && echo -n "\"firmware\" : \"$firmware\", "
-		[ -n "$community_id" ] && echo -n "\"community\" : \"$community_id\", "
+		[ -n "$community" ] && echo -n "\"community\" : \"$community\", "
 		[ -n "$vpn" ] && echo -n "\"vpn\" : $vpn, "
 		[ -n "$gateway" ] && echo -n "\"gateway\" : $gateway, "
 		echo -n "\"links\" : ["
-
 		printLink() { echo -n "{ \"smac\" : \"$(cat /sys/class/net/$3/address)\", \"dmac\" : \"$1\", \"qual\" : $2 }"; }
-		IFS=""
+		# do not remove the linebreak between quotes below - it is intentional
+		IFS="
+"
 		nd=0
 		for entry in $(cat /sys/kernel/debug/batman_adv/bat0/originators |  tr '\t/[]()' ' ' |  awk '{ if($1==$4) print($1, $3, $5) }'); do
 			[ $nd -eq 0 ] && nd=1 || echo -n ", "
 			IFS=" "
 			printLink $entry
 		done
-
 		echo -n '], '
 		echo -n "\"clientcount\" : 0"
 		echo -n '}'
 	} | gzip -c - | alfred -s 64 -u /var/run/alfred/alfred.sock
 
 fi # run_mesh
+
+
+if [ $run_gateway = 1 ]; then
+        if ! is_running "openvpn"; then
+                echo "(I) Start openvpn."
+                /etc/init.d/openvpn start
+        fi
+
+        if ! is_running "tayga"; then
+                echo "(I) Start tayga."
+                tayga
+        fi
+
+        if ! is_running "named"; then
+                echo "(I) Start bind."
+                /etc/init.d/bind9 start
+        fi
+
+        if ! is_running "radvd"; then
+                echo "(I) Start radvd."
+                /etc/init.d/radvd restart
+        fi
+        if ! is_running "dhcpd"; then
+                echo "(I) Start DHCP."
+                /etc/init.d/isc-dhcp-server start
+        fi
+
+        # Activate the gateway announcements on a node that has a DHCP server running
+        batctl gw_mode server
+
+fi # run_gateway
+
+
+if [ $run_map = 1 ]; then
+
+        #collect all map pieces
+        alfred -r 64 -u /var/run/alfred/alfred.sock > /tmp/maps.txt
+
+        #create map data (old map)
+	# several newer vars like mem usage are not covered by the script below - deactivated
+        #./ffmap-backend.py -m /tmp/maps.txt -a ./aliases.json > /var/www/nodes.json
+
+        # create map data (meshviewer)
+        ./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/meshviewer/nodes.json --meshviewer-graph /var/www/meshviewer/graph.json
+
+        #update FF-Internal status page
+	# old map - deactivated
+        #./status_page_create.sh '/var/www/index.html'
+
+        #update nodes/clients/gateways counter
+	# old map - deactivated
+        #./counter_update.py '/var/www/nodes.json' '/var/www/counter.svg'
+
+fi # run_map
 
 
 if [ $run_webserver = 1 ]; then
@@ -218,64 +279,7 @@ if [ $run_webserver = 1 ]; then
 
 fi # run_webserver
 
-if [ $run_map = 1 ]; then
 
-	#collect all map pieces
-	alfred -r 64 -u /var/run/alfred/alfred.sock > /tmp/maps.txt
-
-	#create map data (old map)
-	#./ffmap-backend.py -m /tmp/maps.txt -a ./aliases.json > /var/www/nodes.json
-	# create map data (meshviewer)
-        ./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/meshviewer/nodes.json --meshviewer-graph /var/www/meshviewer/graph.json
-        
-	#update FF-Internal status page
-	./status_page_create.sh '/var/www/index.html'
-
-	#update nodes/clients/gateways counter
-	./counter_update.py '/var/www/nodes.json' '/var/www/counter.svg'
-
-	# statistics
-	if [ "$statistics" = "true" ]; then
-	  # add vnstat interface for bat0
-	  vnstat -u -i bat0
-	  # grant access for vnstat
-	  chown vnstat.vnstat /var/lib/vnstat/bat0
-	  if ! is_running "vnstatd"; then
-	    /etc/init.d/vnstat start
-	  fi
-	fi
-
-fi # run_map
-
-if [ $run_gateway = 1 ]; then
-	if ! is_running "openvpn"; then
-		echo "(I) Start openvpn."
-		/etc/init.d/openvpn start
-	fi
-
-	if ! is_running "tayga"; then
-		echo "(I) Start tayga."
-		tayga
-	fi
-
-	if ! is_running "named"; then
-		echo "(I) Start bind."
-		/etc/init.d/bind9 start
-	fi
-
-	if ! is_running "radvd"; then
-		echo "(I) Start radvd."
-		/etc/init.d/radvd restart
-	fi
-	if ! is_running "dhcpd"; then
-		echo "(I) Start DHCP."
-		/etc/init.d/isc-dhcp-server start
-	fi
-
-	# Activate the gateway announcements on a node that has a DHCP server running
-	batctl gw_mode server
-
-fi # run_gateway
 
 echo "update done"
 

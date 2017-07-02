@@ -72,6 +72,7 @@ setup_airvpn() {
 	cp $tmp_dir/user.key /etc/openvpn
 	# set restrictive access rights on key file
 	chmod 600 /etc/openvpn/user.key
+	chmod 600 /etc/openvpn/ta.key
 	cp $tmp_dir/user.crt /etc/openvpn
 	cp $tmp_dir/ca.crt /etc/openvpn
 	cp $tmp_dir/ta.key /etc/openvpn
@@ -80,16 +81,9 @@ setup_airvpn() {
 	#prevent OpenVPN from setting routes
 	echo "route-noexec" >> /etc/openvpn/AirVPN_*.ovpn
 
-	# prevent OpenVPN from changing nameservers in resolv.conf
-        #sed -i "s|up /etc/openvpn/update-resolv-conf|#up /etc/openvpn/update-resolv-conf|g" /etc/openvpn/airvpn_linux.conf
-        #sed -i "s|down /etc/openvpn/update-resolv-conf|#down /etc/openvpn/update-resolv-conf|g" /etc/openvpn/airvpn_linux.conf
-
 	#set a script that will set routes
 	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/AirVPN_*.ovpn
-		
-	#use servers in Sweden only
-	#sed -i 's/^remote /#remote /' /etc/openvpn/airvpn_linux.conf
-	#sed -i 's/^#remote se.airvpn.net/remote se.airvpn.net/' /etc/openvpn/airvpn_linux.conf
+
 }
 
 

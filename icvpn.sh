@@ -24,4 +24,8 @@ echo "${green}************************${col_reset}"
 #{
 #}
 
+# and bird/bird6
+#
+
+
 exit 0
