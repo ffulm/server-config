@@ -39,15 +39,8 @@ fi
 	# remove build remains
 	rm -rf /opt/letsencrypt/
 
-	# add jessie-backports to sources list (certbot will be part of sid)
-	if [ -z "$(cat /etc/apt/sources.list | grep 'jessie-backports')" ]; then
-        	echo 'deb http://ftp.debian.org/debian/ jessie-backports main contrib' >> /etc/apt/sources.list
-        	echo 'deb-src http://ftp.de.debian.org/debian/ jessie-backports main contrib' >> /etc/apt/sources.list
-		apt update
-	fi
-	
 	# get certbot
-        apt -t jessie-backports install --assume-yes certbot
+        apt install --assume-yes certbot
 
 	# get letsencrypt client
 	#echo "(I) ${green}Populate /opt/letsencrypt/${col_reset}"

@@ -2,7 +2,7 @@ Freifunk-Ulm Server
 ===============
 
 Scripte und Konfigurationsdateien zum schnellen Einrichten eines Servers für Freifunk-Ulm.
-Vorausgesetzt wird eine Debian 8 Installation (Jessie).
+Vorausgesetzt wird eine Debian 9 Installation (Stretch).
 Um einen Server einzurichten, reicht es, das Script "setup.sh" als Benutzer 'root' auszuführen:
 
 ```
