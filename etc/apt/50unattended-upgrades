@@ -7,7 +7,7 @@
 // keywords are wild cards.) The keywords originate from the Release
 // file, but several aliases are accepted.  The accepted keywords are:
 //   a,archive,suite (eg, "stable")
-//   c,component     (eg, "main", "crontrib", "non-free")
+//   c,component     (eg, "main", "contrib", "non-free")
 //   l,label         (eg, "Debian", "Debian-Security")
 //   o,origin        (eg, "Debian", "Unofficial Multimedia Packages")
 //   n,codename      (eg, "jessie", "jessie-updates")
@@ -82,6 +82,9 @@ Unattended-Upgrade::Remove-Unused-Dependencies "true";
 //  the file /var/run/reboot-required is found after the upgrade 
 Unattended-Upgrade::Automatic-Reboot "true";
 
+// Automatically reboot even if there are users currently logged in.                                             
+//Unattended-Upgrade::Automatic-Reboot-WithUsers "true";  
+
 // If automatic reboot is enabled and needed, reboot at the specific
 // time instead of immediately
 //  Default: "now"
@@ -90,3 +93,11 @@ Unattended-Upgrade::Automatic-Reboot-Time "02:30";
 // Use apt bandwidth limit feature, this example limits the download
 // speed to 300kb/sec
 Acquire::http::Dl-Limit "300";
+
+// Enable logging to syslog. Default is False                                                                    
+// Unattended-Upgrade::SyslogEnable "false";                                                                     
+
+// Specify syslog facility. Default is daemon                                                                    
+// Unattended-Upgrade::SyslogFacility "daemon";                                                                  
+
+
