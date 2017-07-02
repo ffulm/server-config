@@ -3,13 +3,13 @@ Freifunk-Ulm Server
 
 Scripte und Konfigurationsdateien zum schnellen Einrichten eines Servers für Freifunk-Ulm.
 Vorausgesetzt wird eine Debian 8 Installation (Jessie).
-Um einen Server einzurichten, reicht es, das Script "setup_server.sh" als Benutzer 'root' auszuführen:
+Um einen Server einzurichten, reicht es, das Script "setup.sh" als Benutzer 'root' auszuführen:
 
 ```
 apt-get install git
 git clone https://github.com/ffulm/server-config.git
 cd server-config
-./setup_server.sh
+./setup.sh
 ```
 
 Nach erfolgreichem Einrichten wird das Script "/opt/freifunk/update.sh" alle 5 Minuten
@@ -25,7 +25,7 @@ Für die Serverfunktion werden folgende Programme installiert und automatisch ko
  * Karte: [ffmap](https://github.com/ffnord/ffmap-d3)
 
 ### Gateway
-Wird die Variable "setup_gateway" im Setup-Script auf "true" gesetzt, wird der Server zusätzlich
+Wird die Variable "setup_gateway" im Setup-Script auf "1" gesetzt, wird der Server zusätzlich
 als Gateway eingerichtet. Das Script erwartet dann eine ZIP-Datei mit den Accountdaten
 von mullvad.net im gleichen Verzeichnis. Zum Testen eignet sich ein anonymer Testaccount
 für drei Stunden.
@@ -49,6 +49,10 @@ Alle Serverbetreiber müssen sich absprechen, was den Bereich der verteilten DHC
  * vpn4: 10.33.76.1 range 10.33.76.2 10.33.79.255
  * vpn5: 10.33.80.1 range 10.33.80.2 10.33.83.255
  * vpn6: 10.33.84.1 range 10.33.84.2 10.33.87.255
+
+ * vpn10: 10.33.10.1 range 10.33.10.2 10.33.13.255
+ * vpn11: 10.33.14.1 range 10.33.14.2 10.33.17.255
+ * vpn12: 10.33.18.1 range 10.33.18.2 10.33.21.255
  
 Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch Namen wie "meinserver.ffulm" aufgelöst werden. Masterserver dafür ist zur Zeit vpn5.
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
@@ -64,36 +68,8 @@ Freifunk Ulm nutzt folgende Netze:
  
 Durchsatz und Statistiken
 -----
-Es wird vnstat und munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_statistics" auf "false" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. vpn5 und wird folgendermaßen konfiguriert:
+Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. vpn5.
 
-### munin master
-```
-apt-get install munin
-cd /var/www
-ln -s /var/cache/munin/www/munin
-```
-Dann unter /etc/munin.conf anpassen und alle clients eintragen:
-```
-#[localhost.localdomain]
-#    address 127.0.0.1
-#    use_node_name yes
-[vpn1.ffulm]
-     address 10.33.64.1
-[vpn2.ffulm]
-     address 10.33.68.1
-[vpn3.ffulm]
-     address 10.33.72.1
-[vpn4.ffulm]
-     address 10.33.76.1
-[vpn5.ffulm]
-     address 127.0.0.1
-[vpn6.ffulm]
-     address 10.33.84.1
-```
-Daemon neustarten
-```
-/etc/init.d/munin restart
-```
 
 ICVPN
 -----

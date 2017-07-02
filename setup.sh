@@ -208,7 +208,6 @@ if [ -z "$mac_addr" -o -z "$ip_addr" ]; then
 fi
 
 echo "(I) ${green}Update package database${col_reset}"
-### UNCOMMENT
 apt update
 
 if [ $setup_mesh -eq 1 ]; then ( . ./mesh.sh ) # source script in separate shell
@@ -248,7 +247,6 @@ fi
 
 }
 
-### UNCOMMENT
 if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
 	echo "(I) ${green}Add update.sh entry to /etc/crontab${col_reset}"
 	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
