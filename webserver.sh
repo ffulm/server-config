@@ -7,7 +7,7 @@ echo "${green}********************${col_reset}"
 
 {
 	echo "(I) ${green}Install lighttpd${col_reset}"
-	apt install --assume-yes lighttpd
+	apt install --assume-yes lighttpd php-cgi
 	# generate strong DH primes - takes a very long time!
 	# run only if pem file is missing
 	if [ ! -f /etc/ssl/certs/dhparam.pem ]; then
