@@ -50,7 +50,7 @@ echo "${green}***************************${col_reset}"
 {
 	# set capablilities for alfred binary (create sockets and use elevated privs)
 	# got reset by installation of new alfred binary above
-	setcap cap_net_raw+ep `which alfred`
+	setcap cap_net_admin,cap_net_raw+ep `which alfred`
 
 	# create alfred group
 	addgroup --system alfred
