@@ -159,6 +159,8 @@ if [ $run_mesh = 1 ]; then
                 start-stop-daemon --start --quiet --pidfile /var/run/alfred/alfred.pid --umask 0111 --make-pidfile --chuid alfred:alfred --exec `which alfred` --oknodo -- -i bat0 -u /var/run/alfred/alfred.sock
 		# wait for alfred to start up...
                 sleep 1
+		if ! is_running "alfred"; then echo "(E) alfred is not running!"
+		fi
 	fi
 
 	#announce status website via alfred
