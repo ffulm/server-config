@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+icvpn_hostname=ulm10
+
+
 echo "${green}************************${col_reset}"
 echo "${green}* set up InterCity VPN *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -19,10 +23,25 @@ echo "${green}************************${col_reset}"
 }
 
 
-# TODO
-# Install tinc
-#{
-#}
+# tinc tunnel
+{
+	echo "(I) ${green}icvpn tinc: Install tinc package${col_reset}"
+	apt install --assume-yes git tinc
+
+	rm -rf /etc/tinc/icvpn
+	echo "(I) ${green}icvpn tinc: Clone repo of other peers ${col_reset}"
+        git clone https://github.com/freifunk/icvpn /tmp/icvpn
+	mv /tmp/icvpn /etc/tinc/
+
+	if [ -z "$(cat /etc/tinc/nets.boot | grep 'icvpn')" ]; then
+	        echo "(I) ${green}Add icvpn startup entry to /etc/tinc/nets.boot${col_reset}"
+		echo "icvpn" >> nets.boot
+	fi
+
+	cp etc/tinc/tinc.conf /etc/tinc/icvpn/
+	sed -i "s/ICVPN_HOST/$icvpn_hostname/g" /etc/tinc/icvpn/tinc.conf
+
+}
 
 # and bird/bird6
 #
