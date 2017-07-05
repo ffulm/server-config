@@ -101,6 +101,8 @@ setup_webserver=0
 # Run setup? 
 setup_icvpn=0
 
+# ICVPN hostname (should be something like ulmXX e.g. ulm10)
+icvpn_hostname=ulmXX
 
 ###################
 # 5. map settings #
