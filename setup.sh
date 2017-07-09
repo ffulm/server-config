@@ -102,7 +102,20 @@ setup_webserver=1
 setup_icvpn=0
 
 # ICVPN hostname (should be something like ulmXX e.g. ulm10)
-icvpn_hostname=ulmXX
+# Please prefer corresponding hostname numbering: vpn10 - ulm10
+icvpn_hostname="ulmXX"
+
+# ICVPN addresses
+# InterCity-VPN-Addresses for Ulm do start with 10.207... and fec0::a:cf:... respectively
+# as defined in https://github.com/freifunk/icvpn-meta/blob/master/ulm
+# Go there first and create a pull request for the new addresses!
+# To find valid adresses run https://github.com/freifunk/icvpn-scripts/blob/master/findfree
+icvpn_ipv4_address=""
+icvpn_ipv6_address=""
+
+# By running this script a public key will be created automatically in /etc/tinc/icvpn/hosts/$icvpn_hostname
+# Create a pull request on https://github.com/freifunk/icvpn/tree/master/hosts to upload it.
+# If you skip this, other ICVPN servers can not connect to your tinc daemon.
 
 ###################
 # 5. map settings #

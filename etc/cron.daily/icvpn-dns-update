@@ -3,8 +3,9 @@
 DATADIR=/var/lib/icvpn-meta
 
 # pull new bgp configs of peering partners from https://github.com/freifunk/icvpn-meta
-cd "$DATADIR"
-git pull -q
+## cd "$DATADIR"
+## git pull -q
+# no need; is done in cron.hourly by pulling bgp updates every hour.
 
 # refresh DNS config for freifunk zones
 sudo -u nobody /opt/icvpn-scripts/mkdns -f bind -s "$DATADIR" -x ulm > /etc/bind/named.conf.freifunk
