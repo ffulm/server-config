@@ -3,7 +3,7 @@
 # This script sets up a Freifunk Ulm server consisting of the following blocks:
 
 # 1. mesh (fastd, batman, alfred)
-# 2. gateway (radvd, tayga, openvpn, dns, dhcp, batman gateway mode)
+# 2. gateway (iptables, radvd, tayga, openvpn, dns, dhcp, batman gateway mode)
 # 3. webserver (lighttpd for status page, map pages)
 # 4. icvpn (bird, tinc)
 # 5. map (ffmap, meshviewer)
@@ -88,7 +88,7 @@ vpn_provider="airvpn"
 # The save choice is to setup a webservice.
 
 # Run setup? 
-setup_webserver=0
+setup_webserver=1
 
 
 #####################
@@ -96,7 +96,7 @@ setup_webserver=0
 #####################
 
 # InterCity VPN interconnects all Freifunk subnets by using "Big Internet Technology" (AS, BGP, et. al.)
-# Is not mandatory.
+# It is not mandatory.
 
 # Run setup? 
 setup_icvpn=0
@@ -108,9 +108,9 @@ icvpn_hostname=ulmXX
 # 5. map settings #
 ###################
 
-# sets up map features on the gateway.
+# Sets up map features on the gateway.
 
-# run setup? 
+# Run setup? 
 setup_map=0
 
 
@@ -118,7 +118,9 @@ setup_map=0
 # 6. stats settings #
 #####################
 
-# run setup? 
+# Collect data for fancy graphs like network throughput, memory usage, uptime, etc.
+
+# Run setup? 
 setup_stats=0
 
 # munin host
@@ -135,14 +137,16 @@ munin_type=client
 # 7. unattended upgrade #
 #########################
 
-# run setup? 
+# Sets up unattended security upgrades performed by apt
+
+# Run setup? 
 setup_unattended=1
 
 
 
 
 # Everything set up ? 
-# set run to 1 for this script to run. :-)
+# Set run to 1 for this script to run. :-)
 run=0
 
 
