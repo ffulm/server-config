@@ -19,7 +19,7 @@ echo "${green}********************${col_reset}"
 {
 	echo "(I) ${green}Create /etc/lighttpd/lighttpd.conf${col_reset}"
 	cp etc/lighttpd/lighttpd.conf /etc/lighttpd/
-	sed -i "s/fdef:17a0:fff1:300::1/$ip_addr/g" /etc/lighttpd/lighttpd.conf
+	sed -i "s/fdef:17a0:fff1:300::1/$mesh_ipv6_addr/g" /etc/lighttpd/lighttpd.conf
 	sed -i "s/SERVERNAME/$(hostname)/g" /etc/lighttpd/lighttpd.conf
 }
 

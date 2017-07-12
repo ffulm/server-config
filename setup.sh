@@ -45,7 +45,13 @@ ff_prefix="fdef:17a0:fff1:300::"
 ####################
 
 # Run setup? 
+# Mandatory.
 setup_mesh=1
+
+# IP v4 for mesh interface.
+# This is gateway specific. Get your IP by writing to the mailing list!
+# Format: xxx.xxx.xxx.xxx
+mesh_ipv4_addr=""
 
 # Secret key for fastd (will be generated if not provided).
 # Please keep in mind that the _public_ part of this key pair must be known to other gateways and routers to establish a connection
@@ -58,18 +64,14 @@ batman_version=2017.1
 # 2. Gateway settings #
 #######################
 
-# Run setup? 
+# Run setup?
+# Optional
 setup_gateway=0
-
-# IP v4 for mesh interface.
-# This is gateway specific. Get your IP by writing to the mailing list!
-# Format: xxx.xxx.xxx.xxx
-ipv4_mesh_interface=""
 
 # Range for DHCP
 # This is gateway specific. Get your DHCP range by writing to the mailing list!
 # Enter space separated IP range: xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
-ipv4_dhcp_range=""
+dhcp_ipv4_range=""
 
 # VPN Provider
 # expects zipped config files for vpn tunnel in scripts base directory
@@ -85,9 +87,8 @@ vpn_provider="airvpn"
 # Furthermore it is mandatory if users should be able to click on their router's "neighbourhood link" and 
 # jump to the gateway they are connected with.
 
-# The save choice is to setup a webservice.
-
 # Run setup? 
+# Optional
 setup_webserver=1
 
 
@@ -96,10 +97,10 @@ setup_webserver=1
 #####################
 
 # InterCity VPN interconnects all Freifunk subnets by using "Big Internet Technology" (AS, BGP, et. al.)
-# It is not mandatory.
 
 # Run setup? 
-setup_icvpn=0
+# Optional
+setup_icvpn=1
 
 # ICVPN hostname (should be something like ulmXX e.g. ulm10)
 # Please prefer corresponding hostname numbering: vpn10 - ulm10
@@ -110,12 +111,17 @@ icvpn_hostname="ulmXX"
 # as defined in https://github.com/freifunk/icvpn-meta/blob/master/ulm
 # Go there first and create a pull request for the new addresses!
 # To find valid adresses run https://github.com/freifunk/icvpn-scripts/blob/master/findfree
-icvpn_ipv4_address=""
-icvpn_ipv6_address=""
+icvpn_ipv4_addr=""
+icvpn_ipv6_addr=""
 
 # By running this script a public key will be created automatically in /etc/tinc/icvpn/hosts/$icvpn_hostname
 # Create a pull request on https://github.com/freifunk/icvpn/tree/master/hosts to upload it.
 # If you skip this, other ICVPN servers can not connect to your tinc daemon.
+
+# Autonomous System Number (AS) 
+# as defined in https://github.com/freifunk/icvpn-meta/blob/master/ulm
+# this is community specific
+as_number="64860"
 
 ###################
 # 5. map settings #
@@ -124,6 +130,7 @@ icvpn_ipv6_address=""
 # Sets up map features on the gateway.
 
 # Run setup? 
+# Optional
 setup_map=0
 
 
@@ -134,6 +141,7 @@ setup_map=0
 # Collect data for fancy graphs like network throughput, memory usage, uptime, etc.
 
 # Run setup? 
+# Optional
 setup_stats=0
 
 # munin host
@@ -153,6 +161,7 @@ munin_type=client
 # Sets up unattended security upgrades performed by apt
 
 # Run setup? 
+# Optional
 setup_unattended=1
 
 
@@ -160,7 +169,7 @@ setup_unattended=1
 
 # Everything set up ? 
 # Set run to 1 for this script to run. :-)
-run=0
+run=1
 
 
 ################################################################
@@ -219,9 +228,9 @@ if ! ip addr list dev $wan_iface &> /dev/null; then
 fi
 
 mac_addr="$(get_mac $wan_iface)"
-ip_addr="$(ula_addr $ff_prefix $mac_addr)"
+mesh_ipv6_addr="$(ula_addr $ff_prefix $mac_addr)"
 
-if [ -z "$mac_addr" -o -z "$ip_addr" ]; then
+if [ -z "$mac_addr" -o -z "$mesh_ipv6_addr" ]; then
 	echo "(E) ${red}MAC or IP address no set.${col_reset}"
 	exit 1
 fi
@@ -250,9 +259,9 @@ fi
 
         # transfer several constants to update.sh
 	sed -i "s/mac_addr=\".*\"/mac_addr=\"$mac_addr\"/g" /opt/freifunk/update.sh
-	sed -i "s/ip_addr=\".*\"/ip_addr=\"$ip_addr\"/g" /opt/freifunk/update.sh
+	sed -i "s/mesh_ipv6_addr=\".*\"/mesh_ipv6_addr=\"$mesh_ipv6_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/ff_prefix=\".*\"/ff_prefix=\"$ff_prefix\"/g" /opt/freifunk/update.sh
-	sed -i "s/ipv4_mesh_interface=\".*\"/ipv4_mesh_interface=\"$ipv4_mesh_interface\"/g" /opt/freifunk/update.sh
+	sed -i "s/mesh_ipv4_addr=\".*\"/mesh_ipv4_addr=\"$mesh_ipv4_addr\"/g" /opt/freifunk/update.sh
 
 	sed -i "s/community=\".*\"/community=\"$community_id\"/g" /opt/freifunk/update.sh
 

@@ -1,5 +1,20 @@
 #!/bin/bash
 
+#### DELETE
+icvpn_hostname=ulm10
+community_id="ulm"
+ff_servername="vpn10"
+icvpn_ipv4_addr="10.207.0.151"
+icvpn_ipv6_addr="fec0::a:cf:0:97"
+as_number="64860"
+mesh_ipv4_addr="10.33.10.1"
+
+
+
+
+
+
+
 echo "${green}************************${col_reset}"
 echo "${green}* set up InterCity VPN *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -89,7 +104,7 @@ echo "${green}************************${col_reset}"
 		echo "(I) ${green}icvpn tinc: Create key pair${col_reset}"
 		echo "(I) ${green}---- PRESS ENTER (2x)------${col_reset}"
         	tincd -n icvpn -K	
-	
+
 		sed -i '1i\Address = '$ff_servername'.freifunk-'$community_id'.de' /etc/tinc/icvpn/hosts/$icvpn_hostname
 	fi
 
@@ -97,10 +112,35 @@ echo "${green}************************${col_reset}"
 	echo "(I) ${green}icvpn tinc: Start tinc daemon${col_reset}"
 	service tinc start
 
-}
+} # tinc
 
-# and bird/bird6
-#
+
+# bird
+{
+
+	echo "(I) ${green}icvpn bird: Install bird/bird6 package${col_reset}"
+	apt install --assume-yes git bird
+
+
+	echo "(I) ${green}icvpn bird: copy bird config${col_reset}"
+	\cp -f etc/bird/bird.conf /etc/bird/
+	\cp -f etc/bird/bird6.conf /etc/bird/
+
+	
+	# insert bird addresses and AS number
+	echo "(I) ${green}icvpn bird: Set interface addresses and AS number${col_reset}"
+	sed -i "s/ICVPN_IPV4_ADDR/$icvpn_ipv4_addr/g" /etc/bird/bird.conf
+	sed -i "s/MESH_IPV4_ADDR/$mesh_ipv4_addr/g" /etc/bird/bird.conf
+	sed -i "s/AS_NUMBER/$as_number/g" /etc/bird/bird.conf
+
+	sed -i "s/ICVPN_IPV4_ADDR/$icvpn_ipv4_addr/g" /etc/bird/bird6.conf
+	sed -i "s/MESH_IPV4_ADDR/$mesh_ipv4_addr/g" /etc/bird/bird6.conf
+	sed -i "s/AS_NUMBER/$as_number/g" /etc/bird/bird6.conf
+
+
+
+
+} # bird
 
 
 exit 0

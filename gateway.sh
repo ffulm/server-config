@@ -111,7 +111,7 @@ setup_airvpn() {
 	esac
 	cp etc/openvpn/update-route /etc/openvpn/
 	# substitute gateway specific IP for DNS on bat0 in routes
-	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/openvpn/update-route
+	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/openvpn/update-route
 
 	# start OpenVPN
 	# ...will be started in update.sh
@@ -140,8 +140,8 @@ setup_airvpn() {
 	# grant write access for zone transfers
 	chmod g+w /etc/bind/
 	# adjust config
-	sed -i "s/fdef:17a0:fff1:300::1/$ip_addr/g" /etc/bind/named.conf.options
-	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/bind/named.conf.options
+	sed -i "s/fdef:17a0:fff1:300::1/$mesh_ipv6_addr/g" /etc/bind/named.conf.options
+	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/bind/named.conf.options
 }
 
 #IPv6 Router Advertisments
@@ -151,7 +151,7 @@ setup_airvpn() {
 
 	echo "(I) ${green}Configure radvd${col_reset}"
 	cp etc/radvd.conf /etc/
-	sed -i "s/fdef:17a0:fff1:300::1/$ip_addr/g" /etc/radvd.conf
+	sed -i "s/fdef:17a0:fff1:300::1/$mesh_ipv6_addr/g" /etc/radvd.conf
 	sed -i "s/fdef:17a0:fff1:300::/$ff_prefix/g" /etc/radvd.conf
 }
 
@@ -161,8 +161,8 @@ setup_airvpn() {
 	apt install --assume-yes isc-dhcp-server
 	cp -f etc/dhcp/dhcpd.conf /etc/dhcp/
 	cp -f etc/dhcp/isc-dhcp-server /etc/default/
-	sed -i "s/DNS_SERVER/$ipv4_mesh_interface/g" /etc/dhcp/dhcpd.conf
-	sed -i "s/DHCP_RANGE/$ipv4_dhcp_range/g" /etc/dhcp/dhcpd.conf
+	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/dhcp/dhcpd.conf
+	sed -i "s/DHCP_RANGE/$dhcp_ipv4_range/g" /etc/dhcp/dhcpd.conf
 }
 
 

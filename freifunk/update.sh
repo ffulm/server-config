@@ -4,9 +4,9 @@
 
 #Server address
 mac_addr=""
-ip_addr=""
+mesh_ipv6_addr=""
 ff_prefix=""
-ipv4_mesh_interface=""
+mesh_ipv4_addr=""
 
 #For the map
 geo=""
@@ -63,7 +63,7 @@ name="$(echo $name | cut -c 1-31)"
 
 #check for missing variables
 [ -n "$ff_prefix" ] || { echo "(E) ${red}ff_prefix not set!${col_reset}"; exit 1; }
-[ -n "$ip_addr" ] || { echo "(E) ${red}ip_addr not set!${col_reset}"; exit 1; }
+[ -n "$mesh_ipv6_addr" ] || { echo "(E) ${red}mesh_ipv6_addr not set!${col_reset}"; exit 1; }
 [ -n "$mac_addr" ] || { echo "(E) ${red}mac_addr not set!${col_reset}"; exit 1; }
 
 #test if process is running
@@ -104,7 +104,7 @@ if [ $run_mesh = 1 ]; then
 		ip link set bat0 address "$mac_addr"
 		ip link set bat0 up
 		#set IPv4 address on bat0 for DNS; This is gateway specific!
-		ip addr add "$ipv4_mesh_interface/16" dev bat0 2> /dev/null && echo "(I) Add IPv4-Address $ipv4_mesh_interface to bat0"
+		ip addr add "$mesh_ipv4_addr/16" dev bat0 2> /dev/null && echo "(I) Add IPv4-Address $mesh_ipv4_addr to bat0"
 
 
  	       # Add IPv6 address the same way the routers do.
@@ -140,8 +140,8 @@ if [ $run_mesh = 1 ]; then
 		sysctl -w net.ipv6.neigh.default.gc_thresh3=$(($gc_thresh * 4))
 	fi
 
-	if ip -6 addr add "$ip_addr/64" dev bat0 2> /dev/null; then
-		echo "(I) Set IP-Address of bat0 to $ip_addr"
+	if ip -6 addr add "$mesh_ipv6_addr/64" dev bat0 2> /dev/null; then
+		echo "(I) Set IP-Address of bat0 to $mesh_ipv6_addr"
 	fi
 
 
