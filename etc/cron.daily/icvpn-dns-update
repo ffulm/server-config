@@ -8,7 +8,12 @@ DATADIR=/var/lib/icvpn-meta
 # no need; is done in cron.hourly by pulling bgp updates every hour.
 
 # refresh DNS config for freifunk zones
-sudo -u nobody /opt/icvpn-scripts/mkdns -f bind -s "$DATADIR" -x ulm > /etc/bind/named.conf.freifunk
+# (but only if config exists)
+if [ -f /etc/bind/named.conf.freifunk ]; then
+  sudo -u nobody /opt/icvpn-scripts/mkdns -f bind -s "$DATADIR" -x ulm > /etc/bind/named.conf.freifunk
+fi
 
 # reload bind9 config
-/etc/init.d/bind9 reload > /dev/null
+if [ -f /etc/init.d/bind9 ]; then
+  /etc/init.d/bind9 reload > /dev/null
+fi

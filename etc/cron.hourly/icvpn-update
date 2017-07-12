@@ -11,8 +11,12 @@ cd "$DATADIR"
 git pull -q
 
 # refresh bgp config v4/v6
-sudo -u nobody /opt/icvpn-scripts/mkbgp -4 -f bird -d peers -s "$DATADIR" -x ulm > /etc/bird/bird.d/icvpn.conf
-sudo -u nobody /opt/icvpn-scripts/mkbgp -6 -f bird -d peers -s "$DATADIR" -x ulm -t berlin:upstream > /etc/bird/bird6.d/icvpn.conf
+if [ -f /etc/bird/bird.d/icvpn.conf ]; then
+  sudo -u nobody /opt/icvpn-scripts/mkbgp -4 -f bird -d peers -s "$DATADIR" -x ulm > /etc/bird/bird.d/icvpn.conf
+fi
+if [ -f /etc/bird/bird6.d/icvpn.conf ]; then
+  sudo -u nobody /opt/icvpn-scripts/mkbgp -6 -f bird -d peers -s "$DATADIR" -x ulm -t berlin:upstream > /etc/bird/bird6.d/icvpn.conf
+fi
 
 # reload bird
 birdc configure > /dev/null
