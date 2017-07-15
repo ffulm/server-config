@@ -1,20 +1,5 @@
 #!/bin/bash
 
-#### DELETE
-icvpn_hostname=ulm10
-community_id="ulm"
-ff_servername="vpn10"
-icvpn_ipv4_addr="10.207.0.151"
-icvpn_ipv6_addr="fec0::a:cf:0:97"
-as_number="64860"
-mesh_ipv4_addr="10.33.10.1"
-
-
-
-
-
-
-
 echo "${green}************************${col_reset}"
 echo "${green}* set up InterCity VPN *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -40,6 +25,7 @@ echo "${green}************************${col_reset}"
 	echo "(I) ${green}icvpn tinc: Install tinc package${col_reset}"
 	apt install --assume-yes git tinc
 	# tinc1a.1pre necessary?
+	# build according to https://gist.github.com/mweinelt/efff4fb7eba1ee41ef2d
 
 	# save key pair before cleaning up, but only if it's a pair
 	if [ -f /etc/tinc/icvpn/rsa_key.priv -a -f /etc/tinc/icvpn/hosts/$icvpn_hostname ]; then
@@ -110,7 +96,9 @@ echo "${green}************************${col_reset}"
 
 	# start tinc
 	echo "(I) ${green}icvpn tinc: Start tinc daemon${col_reset}"
-	service tinc start
+	service tinc@icvpn start
+	# make persistent
+	systemctl enable tinc@icvpn
 
 } # tinc
 
@@ -134,10 +122,15 @@ echo "${green}************************${col_reset}"
 	sed -i "s/AS_NUMBER/$as_number/g" /etc/bird/bird.conf
 
 	sed -i "s/ICVPN_IPV4_ADDR/$icvpn_ipv4_addr/g" /etc/bird/bird6.conf
-	sed -i "s/MESH_IPV4_ADDR/$mesh_ipv4_addr/g" /etc/bird/bird6.conf
+	sed -i "s/MESH_IPV6_ADDR/$mesh_ipv6_addr/g" /etc/bird/bird6.conf
 	sed -i "s/AS_NUMBER/$as_number/g" /etc/bird/bird6.conf
 
-
+	# start bird
+	echo "(I) ${green}icvpn bird: Start bird/bird6 daemons${col_reset}"
+	service bird start
+	systemctl enable bird
+	service bird6 start
+	systemctl enable bird6
 
 
 } # bird

@@ -62,9 +62,9 @@ ula_addr()
 name="$(echo $name | cut -c 1-31)"
 
 #check for missing variables
-[ -n "$ff_prefix" ] || { echo "(E) ${red}ff_prefix not set!${col_reset}"; exit 1; }
-[ -n "$mesh_ipv6_addr" ] || { echo "(E) ${red}mesh_ipv6_addr not set!${col_reset}"; exit 1; }
-[ -n "$mac_addr" ] || { echo "(E) ${red}mac_addr not set!${col_reset}"; exit 1; }
+[ -n "$ff_prefix" ] || { echo "(E) ff_prefix not set!"; exit 1; }
+[ -n "$mesh_ipv6_addr" ] || { echo "(E) mesh_ipv6_addr not set!"; exit 1; }
+[ -n "$mac_addr" ] || { echo "(E) mac_addr not set!"; exit 1; }
 
 #test if process is running
 is_running() {
@@ -107,7 +107,7 @@ if [ $run_mesh = 1 ]; then
 		ip addr add "$mesh_ipv4_addr/16" dev bat0 2> /dev/null && echo "(I) Add IPv4-Address $mesh_ipv4_addr to bat0"
 
 
- 	       # Add IPv6 address the same way the routers do.
+  	        # Add IPv6 address the same way the routers do.
 	        # This makes the address consistent with the one used on the routers status page.
 	        macaddr="$(cat /sys/kernel/debug/batman_adv/bat0/originators | awk -F'[/ ]' '{print $7; exit;}')"
 	        euiaddr="$(ula_addr $ff_prefix $macaddr)"
@@ -266,12 +266,12 @@ if [ $run_webserver = 1 ]; then
 
 	if ! is_running "lighttpd"; then
                 #if [ `ip addr | grep __IPV6__ | wc -l` != 1 ]; then
-                #  echo "(I) Set autoupdater IP for vpn5."
+                #  echo "(I) Set autoupdater IP."
                 #  ip addr add __IPV6__ dev bat0
                 #fi
                 #if [ `ip addr | grep __IPV6__ | wc -l` != 1 ]; then
                 #   # EUI64: ip v6 prefix + 3 bytes MAC + fffe + 3 bytes MAC
-                #  echo "(I) Set IP for accessing vpn5 from node status page."
+                #  echo "(I) Set IP for accessing gateway through node status page."
                 #  ip addr add __IPV6__ dev bat0
                 #  sleep 1
                 #fi
@@ -280,6 +280,23 @@ if [ $run_webserver = 1 ]; then
 	fi
 
 fi # run_webserver
+
+
+if [ $run_icvpn = 1 ]; then
+	if ! is_running "tincd"; then
+		echo "(I) Start tincd."
+		service tinc@icvpn start
+	fi
+	if ! is_running "bird"; then
+		echo "(I) Start bird."
+		service bird start
+	fi
+	if ! is_running "bird6"; then
+		echo "(I) Start bird6."
+		service bird6 start
+	fi	
+
+fi # run icvpn
 
 
 

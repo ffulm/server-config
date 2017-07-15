@@ -35,7 +35,7 @@ community_id="ulm"
 community_name="Ulm"
 
 # This server's name. Please stick to the vpnXX scheme. E.g. vpn10, vpn11, ...
-ff_servername="vpnXX"
+ff_servername="vpn10"
 
 # The internal IPv6 prefix as defined in the Freifunk community wiki.
 ff_prefix="fdef:17a0:fff1:300::"
@@ -51,7 +51,7 @@ setup_mesh=1
 # IP v4 for mesh interface.
 # This is gateway specific. Get your IP by writing to the mailing list!
 # Format: xxx.xxx.xxx.xxx
-mesh_ipv4_addr=""
+mesh_ipv4_addr="10.33.10.1"
 
 # Secret key for fastd (will be generated if not provided).
 # Please keep in mind that the _public_ part of this key pair must be known to other gateways and routers to establish a connection
@@ -89,7 +89,7 @@ vpn_provider="airvpn"
 
 # Run setup? 
 # Optional
-setup_webserver=1
+setup_webserver=0
 
 
 #####################
@@ -104,15 +104,15 @@ setup_icvpn=1
 
 # ICVPN hostname (should be something like ulmXX e.g. ulm10)
 # Please prefer corresponding hostname numbering: vpn10 - ulm10
-icvpn_hostname="ulmXX"
+icvpn_hostname="ulm10"
 
 # ICVPN addresses
 # InterCity-VPN-Addresses for Ulm do start with 10.207... and fec0::a:cf:... respectively
 # as defined in https://github.com/freifunk/icvpn-meta/blob/master/ulm
 # Go there first and create a pull request for the new addresses!
 # To find valid adresses run https://github.com/freifunk/icvpn-scripts/blob/master/findfree
-icvpn_ipv4_addr=""
-icvpn_ipv6_addr=""
+icvpn_ipv4_addr="10.207.0.151"
+icvpn_ipv6_addr="fec0::a:cf:0:97"
 
 # By running this script a public key will be created automatically in /etc/tinc/icvpn/hosts/$icvpn_hostname
 # Create a pull request on https://github.com/freifunk/icvpn/tree/master/hosts to upload it.
@@ -280,6 +280,7 @@ if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
 	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null' >> /etc/crontab
 fi
 
+# call update script once to start all remaining services
 /opt/freifunk/update.sh
 
 echo "setup done"
