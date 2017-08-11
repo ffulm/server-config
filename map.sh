@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 echo "${green}************************${col_reset}"
 echo "${green}* set up map functions *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -24,30 +26,41 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         #rm -rf ffmap-d3
 
         
-        # remove build remains
+	# compile npm (no package for debian stretch)
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	apt install --show-progress --assume-yes nodejs
+
+	# get lastest yarn
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	apt update && apt install --show-progress --assume-yes yarn
+
+        # remove possible build remains
         rm -rf meshviewer
-        echo "(I) ${green}Add meshviewer${col_reset}"
+
+        echo "(I) ${green}Build meshviewer${col_reset}"
         mkdir -p /var/www/meshviewer/
-        apt install --assume-yes git npm nodejs-legacy ruby-sass
-        git clone https://github.com/freifunk-bielefeld/meshviewer.git
+        apt install --show-progress --assume-yes git
+	git clone https://github.com/ffrgb/meshviewer.git
         cd meshviewer
-        npm install 
-        npm install grunt-cli
-        node_modules/.bin/grunt
-        # copy config to build
-        cp ../etc/meshviewer/config.json build/
+	yarn
+	yarn global add gulp-cli
+        # copy config to build root
+        cp ../etc/meshviewer/config.json .
+	# build it
+	gulp
         # copy build to webroot
         cp -r build/* /var/www/meshviewer/
         cd ..
-        # destroy build
-        rm -rf meshviewer
+        
+	# destroy build
+   	rm -rf meshviewer
         
         echo "(I) ${green}substitute hostname in JSON info file${col_reset}"
         sed -i "s/SERVERNAME/$(hostname)/g" /var/www/cgi-bin/data
         
         chown -R www-data:www-data /var/www
 }
-
 
 
 
