@@ -310,7 +310,7 @@ fi
 	# set capablilities for alfred binary (create sockets and use elevated privs)
 	# got reset by installation of new alfred binary above
 	# (FYI: dropping of privileges is possible since alfred version 2015.0)
-	setcap cap_net_raw+ep `which alfred`
+	setcap cap_net_admin,cap_net_raw+ep `which alfred`
 
 	# create alfred group
 	addgroup --system alfred
