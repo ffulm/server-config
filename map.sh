@@ -47,6 +47,8 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
 	yarn global add gulp-cli
         # copy config to build root
         cp ../etc/meshviewer/config.json .
+	# replace SERVERNAME
+        sed -i "s/SERVERNAME/$(hostname).freifunk-ulm.de/g" config.json
 	# build it
 	gulp
         # copy build to webroot
@@ -54,7 +56,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         cd ..
         
 	# destroy build
-   	rm -rf meshviewer
+#   	rm -rf meshviewer
         
         echo "(I) ${green}substitute hostname in JSON info file${col_reset}"
         sed -i "s/SERVERNAME/$(hostname)/g" /var/www/cgi-bin/data

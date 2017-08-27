@@ -1,7 +1,7 @@
 // Gulp will remove all comments
 {
   // Variables are NODE_ID and NODE_NAME (only a-z0-9\- other chars are replaced with _)
-  "nodeInfos": [
+//  "nodeInfos": [
 //    {
 //      "name": "Clientstatistik",
 //      "href": "https://regensburg.freifunk.net/netz/statistik/node/{NODE_ID}/",
@@ -14,17 +14,17 @@
 //      "image": "https://grafana.regensburg.freifunk.net/render/dashboard-solo/db/ffrgb-all-nodes?panelId=2&from=now-7d&var-nodeid={NODE_ID}&var-host={NODE_NAME}&width=650&height=350&theme=light&_t={TIME}",
 //      "title": "Knoten {NODE_ID} - weiteren Statistiken"
 //    }
-  ],
-  "globalInfos": [
+//  ],
+//  "globalInfos": [
 //    {
 //      "name": "Statistik",
 //      "href": "https://regensburg.freifunk.net/netz/statistik/",
 //      "image": "https://grafana.regensburg.freifunk.net/render/dashboard-solo/db/ffrgb-network-wide-stats?panelId=11&from=now-1y&width=600&height=350&theme=light",
 //     "title": "Jahresstatistik - weiteren Statistiken"
 //    }
-  ],
+//  ],
   // String or array of data provider are supported
-  "dataPath": "file:///var/www/meshviewer/",
+  "dataPath": "https://SERVERNAME/meshviewer/",
   "siteName": "Freifunk Ulm",
   "mapLayers": [
 //    {
