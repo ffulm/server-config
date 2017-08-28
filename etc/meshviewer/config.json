@@ -27,30 +27,32 @@
   "dataPath": "https://SERVERNAME/meshviewer/",
   "siteName": "Freifunk Ulm",
   "mapLayers": [
-//    {
-//      "name": "Freifunk Regensburg",
+    {
+      "name": "Freifunk Regensburg",
       // Please ask Freifunk Regensburg before using its tile server c- example with retina tiles
-//      "url": "https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png",
-//      "config": {
-//        "maxZoom": 22,
-//        "subdomains": "1234",
-//        "attribution": "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"https://openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a class=\"mapbox-improve-map\" href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a>",
-//        "start": 6
-//      }
-//    },
-//    {
-//      "name": "Freifunk Regensburg Night",
+      // permission granted as of 17/08/28 by ffrgb
+      "url": "https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png",
+      "config": {
+        "maxZoom": 22,
+        "subdomains": "1234",
+        "attribution": "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"https://openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a class=\"mapbox-improve-map\" href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a>",
+        "start": 6
+      }
+    },
+    {
+      "name": "Freifunk Regensburg Night",
       // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
-//      "url": "https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png",
-//      "config": {
-//       "maxZoom": 22,
-//        "subdomains": "1234",
-//        "attribution": "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"https://openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a class=\"mapbox-improve-map\" href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a>",
-//        "mode": "night",
-//        "start": 19,
-//        "end": 7
-//     }
-//    },
+      // permission granted as of 17/08/28 by ffrgb
+      "url": "https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png",
+      "config": {
+       "maxZoom": 22,
+        "subdomains": "1234",
+        "attribution": "<a href=\"https://www.mapbox.com/about/maps/\" target=\"_blank\">&copy; Mapbox</a> <a href=\"https://openstreetmap.org/about/\" target=\"_blank\">&copy; OpenStreetMap</a> <a class=\"mapbox-improve-map\" href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a>",
+        "mode": "night",
+        "start": 19,
+        "end": 7
+     }
+    },
     {
       "name": "OpenStreetMap.HOT",
       "url": "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
