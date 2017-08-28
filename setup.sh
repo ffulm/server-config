@@ -35,7 +35,7 @@ community_id="ulm"
 community_name="Ulm"
 
 # This server's name. Please stick to the vpnXX scheme. E.g. vpn10, vpn11, ...
-ff_servername="vpn10"
+ff_servername="vpnXX"
 
 # The internal IPv6 prefix as defined in the Freifunk community wiki.
 ff_prefix="fdef:17a0:fff1:300::"
@@ -51,14 +51,14 @@ setup_mesh=1
 # IP v4 for mesh interface.
 # This is gateway specific. Get your IP by writing to the mailing list!
 # Format: xxx.xxx.xxx.xxx
-mesh_ipv4_addr="10.33.10.1"
+mesh_ipv4_addr=""
 
 # Secret key for fastd (will be generated if not provided).
 # Please keep in mind that the _public_ part of this key pair must be known to other gateways and routers to establish a connection
 fastd_secret=""
 
 # B.A.T.M.A.N version
-batman_version=2017.1
+batman_version=2017.2
 
 #######################
 # 2. Gateway settings #
@@ -66,7 +66,7 @@ batman_version=2017.1
 
 # Run setup?
 # Optional
-setup_gateway=0
+setup_gateway=1
 
 # Range for DHCP
 # This is gateway specific. Get your DHCP range by writing to the mailing list!
@@ -75,8 +75,8 @@ dhcp_ipv4_range=""
 
 # VPN Provider
 # expects zipped config files for vpn tunnel in scripts base directory
-# possible values: mullvad, airvpn
-vpn_provider="airvpn"
+# possible values: mullvad, airvpn, freifunkrheinland
+vpn_provider="mullvad"
 
 
 #########################
@@ -89,7 +89,7 @@ vpn_provider="airvpn"
 
 # Run setup? 
 # Optional
-setup_webserver=0
+setup_webserver=1
 
 
 #####################
@@ -100,19 +100,19 @@ setup_webserver=0
 
 # Run setup? 
 # Optional
-setup_icvpn=1
+setup_icvpn=0
 
 # ICVPN hostname (should be something like ulmXX e.g. ulm10)
 # Please prefer corresponding hostname numbering: vpn10 - ulm10
-icvpn_hostname="ulm10"
+icvpn_hostname="ulmXX"
 
 # ICVPN addresses
 # InterCity-VPN-Addresses for Ulm do start with 10.207... and fec0::a:cf:... respectively
 # as defined in https://github.com/freifunk/icvpn-meta/blob/master/ulm
 # Go there first and create a pull request for the new addresses!
 # To find valid adresses run https://github.com/freifunk/icvpn-scripts/blob/master/findfree
-icvpn_ipv4_addr="10.207.0.151"
-icvpn_ipv6_addr="fec0::a:cf:0:97"
+icvpn_ipv4_addr=""
+icvpn_ipv6_addr=""
 
 # By running this script a public key will be created automatically in /etc/tinc/icvpn/hosts/$icvpn_hostname
 # Create a pull request on https://github.com/freifunk/icvpn/tree/master/hosts to upload it.
@@ -131,7 +131,7 @@ as_number="64860"
 
 # Run setup? 
 # Optional
-setup_map=0
+setup_map=1
 
 
 #####################
@@ -142,7 +142,7 @@ setup_map=0
 
 # Run setup? 
 # Optional
-setup_stats=0
+setup_stats=1
 
 # munin host
 munin_host=map.freifunk-ulm.de
@@ -169,7 +169,7 @@ setup_unattended=1
 
 # Everything set up ? 
 # Set run to 1 for this script to run. :-)
-run=1
+run=0
 
 
 ################################################################
@@ -219,8 +219,8 @@ get_mac() {
 }
 
 # Set hostname
-echo "(I) ${green}hostname will be set to $ff_servername.freifunk-$community_id.de${col_reset}"
-hostname -b $ff_servername.freifunk-$community_id.de
+echo "(I) ${green}hostname will be set to $ff_servername ${col_reset}"
+hostname -b $ff_servername
 
 if ! ip addr list dev $wan_iface &> /dev/null; then
 	echo "(E) ${red}Interface $wan_iface does not exist.${col_reset}"

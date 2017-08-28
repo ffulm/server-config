@@ -11,6 +11,8 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
 
 
 {       
+	# legacy map
+
         #echo "(I) ${green}Add ffmap-d3${col_reset}"
         #apt install --assume-yes make git
         #git clone https://github.com/freifunk-bielefeld/ffmap-d3.git
@@ -26,7 +28,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         #rm -rf ffmap-d3
 
         
-	# compile npm (no package for debian stretch)
+	# compile npm/nodejs (no package for debian stretch)
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	apt install --show-progress --assume-yes nodejs
 
@@ -35,7 +37,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 	apt update && apt install --show-progress --assume-yes yarn
 
-        # remove possible build remains
+        # remove possible build remains of meshviewer
         rm -rf meshviewer
 
         echo "(I) ${green}Build meshviewer${col_reset}"
@@ -48,7 +50,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         # copy config to build root
         cp ../etc/meshviewer/config.json .
 	# replace SERVERNAME
-        sed -i "s/SERVERNAME/$(hostname).freifunk-ulm.de/g" config.json
+        sed -i "s/SERVERNAME/$ff_servername.freifunk-$community_id.de/g" config.json
 	# build it
 	gulp
         # copy build to webroot
@@ -56,11 +58,9 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         cd ..
         
 	# destroy build
-#   	rm -rf meshviewer
+   	rm -rf meshviewer
         
-        echo "(I) ${green}substitute hostname in JSON info file${col_reset}"
-        sed -i "s/SERVERNAME/$(hostname)/g" /var/www/cgi-bin/data
-        
+	# owner of webfiles should be webserver
         chown -R www-data:www-data /var/www
 }
 
