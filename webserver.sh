@@ -36,6 +36,8 @@ fi
 	# every router's homepage links to this neighbourhood page
 	echo "(I) ${green}substitute hostname in JSON info file${col_reset}"
 	sed -i "s/SERVERNAME/$ff_servername/g" /var/www/cgi-bin/data
+	# customize simple index.html for server
+	sed -i "s/SERVERNAME/$ff_servername/g" /var/www/index.html
 
 	# owner of webfiles should be webserver
         chown -R www-data:www-data /var/www
