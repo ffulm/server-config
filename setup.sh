@@ -87,6 +87,8 @@ vpn_provider="mullvad"
 # Furthermore it is mandatory if users should be able to click on their router's "neighbourhood link" and 
 # jump to the gateway they are connected with.
 
+# If you run this part, be sure to have DNS resolution set up - otherwise certificate checkout at letsencrypt will fail!
+
 # Run setup? 
 # Optional
 setup_webserver=1
