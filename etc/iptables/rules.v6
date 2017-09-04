@@ -15,6 +15,9 @@
 -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
+# allow connect to tincd from ICVPN
+-A INPUT -p tcp -m tcp --dport 656 -j ACCEPT
+
 # allow fastd connections on any interface
 -A INPUT -p tcp -m tcp --dport 1244 -j ACCEPT
 -A INPUT -p udp -m udp --dport 1244 -j ACCEPT

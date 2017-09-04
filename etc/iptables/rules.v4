@@ -15,6 +15,9 @@
 -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
+# allow connect to tincd from ICVPN
+-A INPUT -p tcp -m tcp --dport 656 -j ACCEPT
+
 # allow DNS from freifunk meshnet
 -A INPUT -i bat0 -p udp -m udp --dport 53 -j ACCEPT
 -A INPUT -i bat0 -p tcp -m tcp --dport 53 -j ACCEPT
