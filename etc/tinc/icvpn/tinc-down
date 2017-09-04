@@ -1,0 +1,5 @@
+#!/bin/sh
+/sbin/ip addr del dev $INTERFACE ICVPN_IPV4_ADDR/16 broadcast 10.207.255.255
+/sbin/ip -6 addr del dev $INTERFACE ICVPN_IPV6_ADDR/96
+/sbin/ip link set dev $INTERFACE down
+
