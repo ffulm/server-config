@@ -40,7 +40,8 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         cd ..
 
 	# copy map-generating script
-	cp freifunk/map-backend.py /opt/freifunk/
+	#mkdir -p /opt/freifunk/
+	#cp freifunk/map-backend.py /opt/freifunk/
         
 	# destroy build
  	rm -rf meshviewer
