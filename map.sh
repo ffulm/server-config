@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 echo "${green}************************${col_reset}"
 echo "${green}* set up map functions *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -11,25 +10,8 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
 
 
 {       
-	# legacy map
-
-        #echo "(I) ${green}Add ffmap-d3${col_reset}"
-        #apt install --assume-yes make git
-        #git clone https://github.com/freifunk-bielefeld/ffmap-d3.git
-        #cd ffmap-d3
-        #sed -i "s/ffbi-/ffulm-/g" config.js
-        #sed -i "s/gotham.freifunk.net/www.freifunk-$community_id.de/g" config.js
-        #sed -i "s/gotham/$community_id/g" config.js
-        #sed -i "s/Gotham/$community_name/g" config.js
-        #sed -i "s/fdef:17a0:ffb1:300::/$ff_prefix/g" config.js
-        #make
-        #cp -r www/* /var/www/
-        #cd ..
-        #rm -rf ffmap-d3
-
-        
 	# compile npm/nodejs (no package for debian stretch)
-	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - 
 	apt install --show-progress --assume-yes nodejs
 
 	# get lastest yarn
@@ -56,9 +38,12 @@ apt install --show-progress --assume-yes python3 python3-jsonschema
         # copy build to webroot
         cp -r build/* /var/www/meshviewer/
         cd ..
+
+	# copy map-generating script
+	cp freifunk/map-backend.py /opt/freifunk/
         
 	# destroy build
-   	rm -rf meshviewer
+ 	rm -rf meshviewer
         
 	# owner of webfiles should be webserver
         chown -R www-data:www-data /var/www
