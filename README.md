@@ -27,7 +27,7 @@ Für die Serverfunktion werden folgende Programme installiert und automatisch ko
 ### Gateway
 Wird die Variable "setup_gateway" im Setup-Script auf "1" gesetzt, wird der Server zusätzlich
 als Gateway eingerichtet. Das Script erwartet dann eine ZIP-Datei mit den Accountdaten
-von mullvad.net im gleichen Verzeichnis. Zum Testen eignet sich ein anonymer Testaccount
+von mullvad.net oder AirVPN im gleichen Verzeichnis. Zum Testen eignet sich ein anonymer Testaccount
 für drei Stunden.
 
 Für die Gatewayfunktion werden folgende Programme installiert und automatisch konfiguriert:
@@ -58,7 +58,7 @@ Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
 
 ### alfred
-Des Weiteren sollte mindestens ein Server mit dem Schalter "-m" als alfred master betrieben werden. Zur Zeit ist dies vpn6.
+Des Weiteren sollte mindestens ein Server mit dem Schalter "-m" als alfred master betrieben werden. Zur Zeit ist dies map10.
 https://github.com/ffulm/server-config/blob/master/freifunk/update.sh#L121
 
 ### Netz
@@ -68,7 +68,7 @@ Freifunk Ulm nutzt folgende Netze:
  
 Durchsatz und Statistiken
 -----
-Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. vpn5.
+Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. map10.
 
 
 ICVPN
@@ -78,6 +78,10 @@ Folgende Adressen wurden im [Transfernetz des ICVPN] (https://github.com/freifun
 vpn5
  * ipv4: ```10.207.0.105```
  * ipv6: ```fec0::a:cf:0:96```
+
+vpn10
+ * ipv4: ```10.207.0.151```
+ * ipv6: ```fec0::a:cf:0:97```
 
 Doku zu ICVPN bei FF Bielefeld: (veraltet)
 https://wiki.freifunk-bielefeld.de/doku.php?id=ic-vpn
@@ -92,31 +96,3 @@ https://wiki.freifunk.net/IC-VPN
 DNS im Freifunk wiki:
 https://wiki.freifunk.net/DNS
 
-Die Konfig sollte automatisch per cron.hourly/daily aktualisiert werden: 
-```
-#!/bin/sh
-
-DATADIR=/var/lib/icvpn-meta
-
-# pull new public keys of peering partners for tinc vpn daemon from https://github.com/freifunk/icvpn
-cd /etc/tinc/icvpn
-git pull -q
-
-# pull new bgp configs of peering partners from https://github.com/freifunk/icvpn-meta
-cd "$DATADIR"
-git pull -q
-
-# refresh bgp config v4/v6
-sudo -u nobody /opt/icvpn-scripts/mkbgp -4 -f bird -d peers -s "$DATADIR" -x ulm > /etc/bird/bird.d/icvpn.conf
-sudo -u nobody /opt/icvpn-scripts/mkbgp -6 -f bird -d peers -s "$DATADIR" -x ulm -t berlin:upstream > /etc/bird/bird6.d/icvpn.conf
-
-# reload bird v4/v6
-birdc configure > /dev/null
-birdc6 configure > /dev/null
-
-# refresh DNS config for freifunk zones
-sudo -u nobody /opt/icvpn-scripts/mkdns -f bind -s "$DATADIR" -x ulm > /etc/bind/named.conf.freifunk
-
-# reload bind9 config
-/etc/init.d/bind9 reload > /dev/null
-```
