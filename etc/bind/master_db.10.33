@@ -1,11 +1,13 @@
 $TTL    604800
 @       IN      SOA     vpn5.ffulm. info@freifunk-ulm.de (
-                            30    ; Serial
+                            32    ; Serial
                          604800		; Refresh
                           86400		; Retry
                         2419200		; Expire
                          604800 )	; Negative Cache TTL
 ; name servers
+@	IN      NS      vpn11.ffulm.
+@	IN      NS      vpn10.ffulm.
 @	IN      NS      vpn6.ffulm.
 @	IN      NS      vpn5.ffulm.
 @ IN      NS      vpn4.ffulm.
@@ -20,6 +22,9 @@ $TTL    604800
 1.76  IN      PTR     vpn4.ffulm.                   ; 10.33.76.1
 1.80  IN      PTR     vpn5.ffulm.                   ; 10.33.80.1
 1.84  IN      PTR     vpn6.ffulm.                   ; 10.33.84.1
+1.10  IN      PTR     vpn10.ffulm.                  ; 10.33.10.1
+1.14  IN      PTR     vpn11.ffulm.                  ; 10.33.14.1
+1.90  IN      PTR     map10.ffulm.                  ; 10.33.90.1
 1.99  IN      PTR     monitor.ffulm.                ; 10.33.99.1
 3.99  IN      PTR     daniel.ffulm.                 ; 10.33.99.3
 4.99  IN      PTR     unterstuetzungsverein.ffulm.  ; 10.33.99.4
