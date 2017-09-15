@@ -249,7 +249,7 @@ if [ $run_map = 1 ]; then
         #./ffmap-backend.py -m /tmp/maps.txt -a ./aliases.json > /var/www/nodes.json
 
         # create map data (meshviewer)
-        ./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/meshviewer/nodes.json --meshviewer-graph /var/www/meshviewer/graph.json
+        ./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/data/nodes.json --meshviewer-graph /var/www/data/graph.json
 
         #update FF-Internal status page
 	# old map - deactivated

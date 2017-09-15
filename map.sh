@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 echo "${green}************************${col_reset}"
 echo "${green}* set up map functions *${col_reset}"
 echo "${green}************************${col_reset}"
@@ -24,7 +23,10 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
 
         echo "(I) ${green}Build meshviewer${col_reset}"
         mkdir -p /var/www/meshviewer/
+	# place to store JSONs
+        mkdir -p /var/www/data/
         apt install --show-progress --assume-yes git
+	# get fork of ffrgb map
 	git clone https://github.com/ffulm/meshviewer.git
         cd meshviewer
 	yarn
@@ -39,10 +41,6 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         cp -r build/* /var/www/meshviewer/
         cd ..
 
-	# copy map-generating script
-	#mkdir -p /opt/freifunk/
-	#cp freifunk/map-backend.py /opt/freifunk/
-        
 	# destroy build
  	rm -rf meshviewer
         
