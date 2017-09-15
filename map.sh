@@ -25,7 +25,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         echo "(I) ${green}Build meshviewer${col_reset}"
         mkdir -p /var/www/meshviewer/
         apt install --show-progress --assume-yes git
-	git clone https://github.com/ffrgb/meshviewer.git
+	git clone https://github.com/ffulm/meshviewer.git
         cd meshviewer
 	yarn
 	yarn global add gulp-cli
