@@ -94,7 +94,7 @@
     ]
   ],
   "siteNames": [
-    { "site": "ulm", "name": "Ulm", "link" : "https://www.freifunk-ulm.de" },
+    { "site": "ulm", "name": "Ulm", "link" : "http://www.freifunk-ulm.de" },
     { "site": "ostallgaeu", "name": "Ostallgäu", "link": "http://freifunk-ostallgaeu.de"}
   ]
 }
