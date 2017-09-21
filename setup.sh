@@ -51,6 +51,7 @@ setup_mesh=1
 # IP v4 for mesh interface.
 # This is gateway specific. Get your IP by writing to the mailing list!
 # Format: xxx.xxx.xxx.xxx
+# Important: This IP may not be inside 10.33.0.1-10.33.15.254 (= the NAT64 /20 range)
 mesh_ipv4_addr=""
 
 # Secret key for fastd (will be generated if not provided).
