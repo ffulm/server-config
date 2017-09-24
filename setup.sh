@@ -280,7 +280,7 @@ fi
 
 if [ -z "$(cat /etc/crontab | grep '/opt/freifunk/update.sh')" ]; then
 	echo "(I) ${green}Add update.sh entry to /etc/crontab${col_reset}"
-	echo '*/5 * * * * root /opt/freifunk/update.sh &> /dev/null' >> /etc/crontab
+	echo '*/5 * * * * root /opt/freifunk/update.sh > /dev/null 2>&1' >> /etc/crontab
 fi
 
 # call update script once to start all remaining services
