@@ -28,7 +28,7 @@
   "siteName": "Freifunk Ulm",
   "mapLayers": [
     {
-      "name": "Freifunk Regensburg",
+      "name": "Freifunk (ffrgb)",
       // Please ask Freifunk Regensburg before using its tile server c- example with retina tiles
       // permission granted as of 17/08/28 by ffrgb
       "url": "https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png",
@@ -40,7 +40,7 @@
       }
     },
     {
-      "name": "Freifunk Regensburg Night",
+      "name": "Freifunk (ffrgb) night",
       // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
       // permission granted as of 17/08/28 by ffrgb
       "url": "https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png",
