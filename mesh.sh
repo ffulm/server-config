@@ -18,7 +18,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
-	sha256check "batman-adv-$batman_version.tar.gz" "d487974e21cb53d39f139e93a2cf297807df5b7bf63ba6d810bad6d91537394f"
+	sha256check "batman-adv-$batman_version.tar.gz" "830edd297ff11b91623e9612172db3e2b2c1524e2f9b2ca1cb243e2e3f0ba4d4"
 	tar -xzf batman-adv-$batman_version.tar.gz
 	cd batman-adv-$batman_version/
 	make
@@ -28,7 +28,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batctl
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batctl-$batman_version.tar.gz
-	sha256check "batctl-$batman_version.tar.gz" "c460d0910d03916e2cb43b60ca427d0101474680cfc096cc2d28a259a94f536c"
+	sha256check "batctl-$batman_version.tar.gz" "29c7f075023e02ed9a9299008ec73cfdb4e1b04991d27e4f396131b4059b88a8"
 	tar -xzf batctl-$batman_version.tar.gz
 	cd batctl-$batman_version/
 	make
@@ -38,7 +38,7 @@ echo "${green}***************************${col_reset}"
 
 	#install alfred
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$batman_version.tar.gz
-	sha256check "alfred-$batman_version.tar.gz" "3d5256abe298f7ee266f9d2a0c41b0878e81bc5c8413c4f66cf8813e7f7f4a03"
+	sha256check "alfred-$batman_version.tar.gz" "c2963523ba86746476db9bbd820b7956761b362d5daa392d9ed471786eaf0208"
 	tar -xzf alfred-$batman_version.tar.gz
 	cd alfred-$batman_version/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
@@ -67,15 +67,15 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libsodium${col_reset}"
 
 	#install libsodium
-	wget -N --no-check-certificate -O libsodium-1.0.12.tar.gz http://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz
-	sha256check "libsodium-1.0.12.tar.gz" "b8648f1bb3a54b0251cf4ffa4f0d76ded13977d4fa7517d988f4c902dd8e2f95"
-	tar -xvzf libsodium-1.0.12.tar.gz
-	cd libsodium-1.0.12
+	wget -N --no-check-certificate -O libsodium-1.0.15.tar.gz http://github.com/jedisct1/libsodium/releases/download/1.0.15/libsodium-1.0.15.tar.gz
+	sha256check "libsodium-1.0.15.tar.gz" "fb6a9e879a2f674592e4328c5d9f79f082405ee4bb05cb6e679b90afe9e178f4"
+	tar -xvzf libsodium-1.0.15.tar.gz
+	cd libsodium-1.0.15
 	./configure
 	make
 	make install
 	cd ..
-	rm -rf libsodium-1.0.12*
+	rm -rf libsodium-1.0.15*
 	ldconfig
 
 	echo "(I) ${green}Build and install libuecc${col_reset}"
