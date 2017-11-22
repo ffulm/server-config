@@ -1,6 +1,6 @@
 $TTL    604800
-@       IN      SOA     vpn5.ffulm. info@freifunk-ulm.de (
-                            34    ; Serial
+@       IN      SOA     map10.ffulm. info@freifunk-ulm.de (
+                            35    ; Serial
                          604800		; Refresh
                           86400		; Retry
                         2419200		; Expire
@@ -14,6 +14,7 @@ $TTL    604800
 @ IN      NS      vpn3.ffulm.
 @ IN      NS      vpn2.ffulm.
 @ IN      NS      vpn1.ffulm.
+@ IN      NS      map10.ffulm.de
 
 ; PTR Records
 1.64  IN      PTR     vpn1.ffulm.                   ; 10.33.64.1
