@@ -34,7 +34,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         # copy config to build root
         cp ../etc/meshviewer/config.json .
 	# replace SERVERNAME
-        sed -i "s/SERVERNAME/$ff_servername.freifunk-$community_id.de/g" config.json
+        #sed -i "s/SERVERNAME/$ff_servername.freifunk-$community_id.de/g" config.json
 	# build it
 	gulp
         # copy build to webroot
