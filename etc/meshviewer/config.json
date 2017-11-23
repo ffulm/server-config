@@ -24,7 +24,7 @@
 //    }
 //  ],
   // String or array of data provider are supported
-  "dataPath": "https://SERVERNAME/data/",
+  "dataPath": "../data/",
   "siteName": "Freifunk Ulm",
   "mapLayers": [
     {
