@@ -8,7 +8,7 @@ if [ ! -d /etc/letsencrypt/live/ ]; then
       exit 1
   fi
 else
-  # test renewal (monthly)
+  # test renewal (weekly)
   if ! certbot renew ; then
       echo "Automated renewal failed:"
       cat /var/log/letsencrypt/renew.log
