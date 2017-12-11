@@ -1,6 +1,6 @@
 $TTL    604800
 @       IN      SOA     map10.ffulm. info@freifunk-ulm.de. (
-		35	; Serial
+		36	; Serial
              604800	; Refresh
               86400	; Retry
             2419200	; Expire
@@ -28,7 +28,7 @@ vpn2.ffulm.				IN	A	10.33.68.1
 vpn1.ffulm.				IN	A	10.33.64.1
 
 ; 10.33.0.0/16 - A records
-map.ffulm.				IN	A	10.33.80.1
+map.ffulm.				IN	A	10.33.92.1
 map10.ffulm.				IN	A	10.33.92.1
 monitor.ffulm.    			IN      A	10.33.99.1
 testsrv.ffulm.    			IN      CNAME	monitor.ffulm.
