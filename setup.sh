@@ -59,7 +59,7 @@ mesh_ipv4_addr=""
 fastd_secret=""
 
 # B.A.T.M.A.N version
-batman_version=2017.3
+batman_version=2017.4
 
 #######################
 # 2. Gateway settings #
