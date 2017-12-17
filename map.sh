@@ -27,7 +27,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         mkdir -p /var/www/data/
         apt install --show-progress --assume-yes git
 	# get fork of ffrgb map
-	git clone https://github.com/ffrgb/meshviewer.git
+	git clone https://github.com/ffulm/meshviewer.git
         cd meshviewer
 	yarn
 	yarn global add gulp-cli
