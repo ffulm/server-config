@@ -27,14 +27,12 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         mkdir -p /var/www/data/
         apt install --show-progress --assume-yes git
 	# get fork of ffrgb map
-	git clone https://github.com/ffulm/meshviewer.git
+	git clone https://github.com/ffrgb/meshviewer.git
         cd meshviewer
 	yarn
 	yarn global add gulp-cli
         # copy config to build root
         cp ../etc/meshviewer/config.json .
-	# replace SERVERNAME
-        #sed -i "s/SERVERNAME/$ff_servername.freifunk-$community_id.de/g" config.json
 	# build it
 	gulp
         # copy build to webroot
