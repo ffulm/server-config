@@ -234,7 +234,8 @@ if [ $run_gateway = 1 ]; then
         fi
 
         # Activate the gateway announcements on a node that has a DHCP server running
-        batctl gw_mode server
+        batctl gw_mode server 10mbit/10mbit
+
 
 fi # run_gateway
 
