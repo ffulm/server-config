@@ -1,37 +1,39 @@
 $TTL    604800
 @       IN      SOA     map10.ffulm. info@freifunk-ulm.de. (
-		36	; Serial
+		37	; Serial
              604800	; Refresh
               86400	; Retry
             2419200	; Expire
              604800 )	; Negative Cache TTL
 ;
 ; name servers - NS records
+@					IN      NS	vpn12.ffulm.
 @					IN      NS	vpn11.ffulm.
 @					IN      NS	vpn10.ffulm.
-@					IN      NS	vpn6.ffulm.
+;@					IN      NS	vpn6.ffulm.
 @					IN      NS	vpn5.ffulm.
 @					IN	NS	vpn4.ffulm.
-@     					IN      NS	vpn3.ffulm.
+;@     					IN      NS	vpn3.ffulm.
 @					IN	NS	vpn2.ffulm.
 @					IN	NS	vpn1.ffulm.
 @					IN	NS	map10.ffulm.
 
 ; name servers - A records
+vpn12.ffulm.				IN      A	10.33.108.1
 vpn11.ffulm.				IN      A	10.33.104.1
 vpn10.ffulm.				IN      A	10.33.100.1
-vpn6.ffulm.				IN      A	10.33.84.1
+;vpn6.ffulm.				IN      A	10.33.84.1
 vpn5.ffulm.				IN      A	10.33.80.1
 vpn4.ffulm.				IN	A	10.33.76.1
-vpn3.ffulm. 				IN      A	10.33.72.1
+;vpn3.ffulm. 				IN      A	10.33.72.1
 vpn2.ffulm.				IN	A	10.33.68.1
 vpn1.ffulm.				IN	A	10.33.64.1
 
 ; 10.33.0.0/16 - A records
 map.ffulm.				IN	A	10.33.92.1
 map10.ffulm.				IN	A	10.33.92.1
-monitor.ffulm.    			IN      A	10.33.99.1
-testsrv.ffulm.    			IN      CNAME	monitor.ffulm.
+status.ffulm.    			IN      A	10.33.99.1
+monitor.ffulm.    			IN      CNAME	status.ffulm.
 daniel.ffulm			   	IN      A       10.33.99.3
 unterstuetzungsverein.ffulm.		IN	A	10.33.99.4
 www.unterstuetzungsverein.ffulm.	IN	CNAME	unterstuetzungsverein.ffulm.
