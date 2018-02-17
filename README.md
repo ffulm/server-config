@@ -45,15 +45,13 @@ Alle Serverbetreiber müssen sich absprechen, was den Bereich der verteilten DHC
 
  * vpn1: 10.33.64.1 range 10.33.64.2 10.33.67.255
  * vpn2: 10.33.68.1 range 10.33.68.2 10.33.71.255
- * vpn3: 10.33.72.1 range 10.33.72.2 10.33.75.255
  * vpn4: 10.33.76.1 range 10.33.76.2 10.33.79.255
- * vpn5: 10.33.80.1 range 10.33.80.2 10.33.83.255
- * vpn6: 10.33.84.1 range 10.33.84.2 10.33.87.255
-
+ 
  * vpn10: 10.33.100.1 range 10.33.100.2 10.33.103.255
  * vpn11: 10.33.104.1 range 10.33.104.2 10.33.107.255
+ * vpn12: 10.33.108.1 range 10.33.108.2 10.33.111.255
  
-Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch Namen wie "meinserver.ffulm" aufgelöst werden. Masterserver dafür ist zur Zeit vpn5.
+Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch Namen wie "meinserver.ffulm" aufgelöst werden.
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
 
 ### alfred
@@ -73,10 +71,6 @@ Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss 
 ICVPN
 -----
 Folgende Adressen wurden im [Transfernetz des ICVPN] (https://github.com/freifunk/icvpn-meta/blob/master/ulm) für die Ulmer community reserviert:
-
-vpn5
- * ipv4: ```10.207.0.105```
- * ipv6: ```fec0::a:cf:0:96```
 
 vpn10
  * ipv4: ```10.207.0.151```
