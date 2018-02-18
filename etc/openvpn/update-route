@@ -24,11 +24,6 @@ ip6tables_a() {
 	ip6tables -C $@ || ip6tables -A $@
 }
 
-# create table shortcut if it does not exist yet
-ip route show table vpn &> /dev/null || echo 100 vpn >> /etc/iproute2/rt_tables
-ip route show table icvpn &> /dev/null || echo 200 icvpn >> /etc/iproute2/rt_tables
-ip route show table dns &> /dev/null || echo 300 dns >> /etc/iproute2/rt_tables
-
 # delete rules (v4)
 ip rule del table vpn &> /dev/null   #bat0
 ip rule del table vpn &> /dev/null   #nat64

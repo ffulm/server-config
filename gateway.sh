@@ -113,6 +113,10 @@ setup_airvpn() {
 	# substitute gateway specific IP for DNS on bat0 in routes
 	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/openvpn/update-route
 
+	# create dns and vpn table shortcut if it does not exist yet
+	ip route show table vpn &> /dev/null || echo 100 vpn >> /etc/iproute2/rt_tables
+	ip route show table dns &> /dev/null || echo 300 dns >> /etc/iproute2/rt_tables
+
 	# start OpenVPN
 	# ...will be started in update.sh
 }

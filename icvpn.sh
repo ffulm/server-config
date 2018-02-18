@@ -125,6 +125,9 @@ echo "${green}************************${col_reset}"
 	sed -i "s/MESH_IPV6_ADDR/$mesh_ipv6_addr/g" /etc/bird/bird6.conf
 	sed -i "s/AS_NUMBER/$as_number/g" /etc/bird/bird6.conf
 
+	# create icvpn table shortcut if it does not exist yet
+	ip route show table icvpn &> /dev/null || echo 200 icvpn >> /etc/iproute2/rt_tables
+
 	# start bird
 	echo "(I) ${green}icvpn bird: Start bird/bird6 daemons${col_reset}"
 	service bird start
