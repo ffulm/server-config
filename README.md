@@ -54,9 +54,9 @@ Alle Serverbetreiber müssen sich absprechen, was den Bereich der verteilten DHC
 Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch Namen wie "meinserver.ffulm" aufgelöst werden.
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
 
-### alfred
+### alfred 
 Des Weiteren sollte mindestens ein Server mit dem Schalter "-m" als alfred master betrieben werden. Zur Zeit ist dies map10.
-https://github.com/ffulm/server-config/blob/master/freifunk/update.sh#L121
+(Schalter zu finden unter: https://github.com/ffulm/server-config/blob/master/freifunk/update.sh)
 
 ### Netz
 Freifunk Ulm nutzt folgende Netze:
@@ -66,6 +66,8 @@ Freifunk Ulm nutzt folgende Netze:
 Durchsatz und Statistiken
 -----
 Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. map10.
+
+Update: Munin soll durch Prometheus/Graphana ersetzt werden.
 
 
 ICVPN
