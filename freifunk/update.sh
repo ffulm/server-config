@@ -249,9 +249,14 @@ if [ $run_map = 1 ]; then
 	# several newer vars like mem usage are not covered by the script below - deactivated
         #./ffmap-backend.py -m /tmp/maps.txt -a ./aliases.json > /var/www/nodes.json
 
-        # create map data (meshviewer)
-        ./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/data/nodes.json --meshviewer-graph /var/www/data/graph.json
+        # create map data (meshviewer) - old meshviewer
+        #./map-backend.py -m /tmp/maps.txt --meshviewer-nodes /var/www/data/nodes.json --meshviewer-graph /var/www/data/graph.json
 
+        # create map data (meshviewer) - new meshviewer
+        #./map-backend.py -m /tmp/maps.txt -a ./aliases.json --meshviewer-org /var/www/data/meshviewer.json
+        # aliases.json can be used to override certain values of nodes. Is optional. Must be edited manually.
+        ./map-backend.py -m /tmp/maps.txt --meshviewer-org /var/www/data/meshviewer.json
+	
         #update FF-Internal status page
 	# old map - deactivated
         #./status_page_create.sh '/var/www/index.html'
