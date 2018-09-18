@@ -5,23 +5,28 @@ module.exports = function () {
 //      {
 //        'name': 'Clientstatistik',
 //        'href': 'https://regensburg.freifunk.net/netz/statistik/node/{NODE_ID}/',
-//        'image': 'https://grafana.regensburg.freifunk.net/render/dashboard-solo/db/ffrgb-all-nodes?panelId=1&from=now-7d&var-nodeid={NODE_ID}&var-host={NODE_NAME}&width=650&height=350&theme=light&_t={TIME}',
+//        'image': 'https://grafana.regensburg.freifunk.net/render/d-solo/000000026/node?panelId=1&var-node={NODE_ID}&from=now-7d&width=650&height=350&theme=light&_t={TIME}',
 //        'title': 'Knoten {NODE_ID} - weiteren Statistiken'
 //      },
 //      {
 //        'name': 'Trafficstatistik',
 //        'href': 'https://regensburg.freifunk.net/netz/statistik/node/{NODE_ID}/',
-//        'image': 'https://grafana.regensburg.freifunk.net/render/dashboard-solo/db/ffrgb-all-nodes?panelId=2&from=now-7d&var-nodeid={NODE_ID}&var-host={NODE_NAME}&width=650&height=350&theme=light&_t={TIME}',
+//        'image': 'https://grafana.regensburg.freifunk.net/render/d-solo/000000026/node?panelId=2&from=now-7d&var-node={NODE_ID}&width=650&height=350&theme=light&_t={TIME}',
+//        'title': 'Knoten {NODE_ID} - weiteren Statistiken'
+//      },
+//      {
+//        'name': 'Airtime',
+//        'href': 'https://regensburg.freifunk.net/netz/statistik/node/{NODE_ID}/',
+//        'image': 'https://grafana.regensburg.freifunk.net/render/d-solo/000000026/node?panelId=5&from=now-7d&var-node={NODE_ID}&width=650&height=350&theme=light&_t={TIME}',
 //        'title': 'Knoten {NODE_ID} - weiteren Statistiken'
 //      }
 //    ],
-//    'globalInfos': [
+//    'linkInfos': [
 //      {
-//        'name': 'Statistik',
-//        'href': 'https://regensburg.freifunk.net/netz/statistik/',
-//        'image': 'https://grafana.regensburg.freifunk.net/render/dashboard-solo/db/ffrgb-network-wide-stats?panelId=11&from=now-1y&width=600&height=350&theme=light',
-//        'title': 'Jahresstatistik - weiteren Statistiken'
-//      }
+//        'name': 'Statistik für alle Links zwischen diese Knoten',
+//        'image': 'https://grafana.regensburg.freifunk.net/render/d-solo/000000026/node?panelId=7&var-node={SOURCE_ID}&var-nodetolink={TARGET_ID}&from=now-7d&&width=650&height=350&theme=light&_t={TIME}',
+//        'title': 'Linkstatistik des letzten Tages, min und max aller Links zwischen diesen Knoten'
+//     }
 //    ],
     // Array of data provider are supported
     'dataPath': [
@@ -30,7 +35,7 @@ module.exports = function () {
     'siteName': 'Freifunk Ulm',
     'mapLayers': [
       {
-        'name': 'Freifunk (ffrgb)',
+        'name': 'Freifunk',
         // Please ask Freifunk Regensburg before using its tile server c- example with retina tiles
         'url': 'https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png',
         'config': {
@@ -41,7 +46,7 @@ module.exports = function () {
         }
       },
       {
-        'name': 'Freifunk (ffrgb) night',
+        'name': 'Freifunk Night',
         // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
         'url': 'https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png',
         'config': {
@@ -94,7 +99,16 @@ module.exports = function () {
         'name': 'Ostallgäu',
         'link': 'http://freifunk-ostallgaeu.de'
       }
+    ],
+    'linkList': [
+      {
+        'title': 'Impressum',
+        'href': 'http://freifunk-unterstuetzungsverein.de/Impressum.html'
+      },
+      {
+        'title': 'Datenschutz',
+        'href': 'http://freifunk-unterstuetzungsverein.de/datenschutzerklaerung.html'
+      }
     ]
   };
 };
-
