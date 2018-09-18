@@ -33,6 +33,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
 	yarn global add gulp-cli
         # copy config to build root
         cp ../etc/meshviewer/config.js .
+	cp ../etc/meshviewer/config.default.js .
 	# build it
 	gulp
         # copy build to webroot
