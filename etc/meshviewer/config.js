@@ -91,13 +91,13 @@ module.exports = function () {
     'siteNames': [
       {
         'site': 'ulm',
-        'name': 'Ulm'
-        //'link': 'http://www.freifunk-ulm.de'
+        'name': 'Ulm',
+        'link': 'http://www.freifunk-ulm.de'
       },
       {
         'site': 'ostallgaeu',
-        'name': 'Ostallgäu'
-        //'link': 'http://freifunk-ostallgaeu.de'
+        'name': 'Ostallgäu',
+        'link': 'http://freifunk-ostallgaeu.de'
       }
     ],
     'linkList': [
