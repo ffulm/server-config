@@ -1,5 +1,5 @@
 // Hide gluon uci command field in location picker
-box-uci { display: none; }
+#box-uci { display: none; }
 
 // Hide gateway field
 table.attributes tr:last-of-type { display: none; }
