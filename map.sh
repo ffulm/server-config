@@ -34,7 +34,7 @@ apt install --show-progress --assume-yes python3 python3-jsonschema curl
         # copy config to build root
         cp ../etc/meshviewer/config.js .
 	cp ../etc/meshviewer/config.default.js .
-	cp ../etc/meshviewer/scss/custom/custom.scss ./scss/custom/
+	cp ../etc/meshviewer/scss/custom/_custom.scss ./scss/custom/
 	# build it
 	gulp
         # copy build to webroot
