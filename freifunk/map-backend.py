@@ -309,8 +309,8 @@ class Node:
         obj['loadavg'] = loadavg
         obj['memory_usage'] = memory_usage
         obj['uptime'] = uptime
-        obj['gateway_nexthop'] = '000000000000'
-        obj['gateway'] = '000000000000'
+        obj['gateway_nexthop'] = '-'
+        obj['gateway'] = '-'
         obj['node_id'] = re.sub('[:]', '', self.mac)
         obj['mac'] = self.mac
         obj['addresses'] = addresses
