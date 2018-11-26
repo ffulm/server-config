@@ -102,7 +102,7 @@ echo "${green}***************************${col_reset}"
 	mkdir fastd_build
 	cd fastd_build
 	# -D is workaround needed till fastd-19
-	cmake ../fastd-18 -D WITH_CIPHER_AES128_CTR_NACL=OFF
+	cmake ../fastd-18 -DWITH_CIPHER_AES128_CTR_NACL=OFF
 	make
 	make install
 	cd ..
