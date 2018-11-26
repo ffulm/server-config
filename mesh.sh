@@ -21,8 +21,8 @@ echo "${green}***************************${col_reset}"
 	sha256check "batman-adv-$batman_version.tar.gz" "3500b4bc7d41ce1adef0b0684972a439d48b454ba78282e94df13ba90605484d"
 	tar -xzf batman-adv-$batman_version.tar.gz
 	cd batman-adv-$batman_version/
-	make
-	make install
+	make CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_DEBUGFS=y
+	make CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_DEBUGFS=y install
 	cd ..
 	rm -rf batman-adv-$batman_version*
 
