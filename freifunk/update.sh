@@ -95,6 +95,8 @@ if [ $run_mesh = 1 ]; then
 		echo "(I) Add fastd interface to batman-adv."
 		ip link set fastd_mesh up
 		ip addr flush dev fastd_mesh
+		# force BATMAN V routing algo _before_ batctl sets up the interface
+		echo BATMAN_V > /sys/module/batman_adv/parameters/routing_algo
 		batctl if add fastd_mesh
 	fi
 
