@@ -35,7 +35,7 @@ module.exports = function () {
     'siteName': 'Freifunk Ulm',
     'mapLayers': [
       {
-        'name': 'Freifunk',
+        'name': 'Freifunk Regensburg',
         // Please ask Freifunk Regensburg before using its tile server c- example with retina tiles
         'url': 'https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png',
         'config': {
@@ -46,7 +46,7 @@ module.exports = function () {
         }
       },
       {
-        'name': 'Freifunk Night',
+        'name': 'Freifunk Regensburg Night',
         // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
         'url': 'https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png',
         'config': {
