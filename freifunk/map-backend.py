@@ -112,7 +112,7 @@ class AlfredParser:
                     "geo": { "type": "array", "items": [{'type' : 'number'}, {'type' : 'number'}]}, #deprecated in favor of longitude/latitude
                     'latitude' : { "type": "number" },
                     'longitude' : { "type": "number" },
-                    'model': { "type": "string", "maxLength": 50 }
+                    'model': { "type": "string", "maxLength": 50 },
                     'uptime': { "type": "number" },
                     'loadavg': { "type": "number" },
                     
