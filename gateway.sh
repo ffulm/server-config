@@ -167,6 +167,10 @@ setup_airvpn() {
 	cp -f etc/dhcp/isc-dhcp-server /etc/default/
 	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/dhcp/dhcpd.conf
 	sed -i "s/DHCP_RANGE/$dhcp_ipv4_range/g" /etc/dhcp/dhcpd.conf
+        # change log rules in rsyslogd
+	cp -f etc/rsyslog.d/00-dhcp.conf /etc/rsyslog.d/
+	# activate new rules...
+	systemctl restart rsyslog
 }
 
 
