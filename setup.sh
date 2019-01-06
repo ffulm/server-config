@@ -134,7 +134,7 @@ as_number="64860"
 
 # Run setup? 
 # Optional
-setup_map=1
+setup_map=0
 
 
 #####################
@@ -145,7 +145,7 @@ setup_map=1
 
 # Run setup? 
 # Optional
-setup_stats=1
+setup_stats=0
 
 # munin host
 munin_host=map.freifunk-ulm.de
