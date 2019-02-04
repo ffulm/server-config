@@ -195,7 +195,7 @@ if [ $run_mesh = 1 ]; then
 		[ -n "$vpn" ] && echo -n "\"vpn\" : $vpn, "
 		[ -n "$gateway" ] && echo -n "\"gateway\" : $gateway, "
 		echo -n "\"links\" : ["
-		printLink() { echo -n "{ \"smac\" : \"$(cat /sys/class/net/$3/address)\", \"dmac\" : \"$1\", \"qual\" : $2 }"; }
+		printLink() { echo -n "{ \"smac\" : \"$(cat /sys/class/net/$3/address)\", \"dmac\" : \"$1\", \"qual\" : 40 }"; }
 		# do not remove the linebreak between quotes below - it is intentional
 		IFS="
 "
