@@ -195,12 +195,12 @@ if [ $run_mesh = 1 ]; then
 		[ -n "$vpn" ] && echo -n "\"vpn\" : $vpn, "
 		[ -n "$gateway" ] && echo -n "\"gateway\" : $gateway, "
 		echo -n "\"links\" : ["
-		printLink() { echo -n "{ \"smac\" : \"$(cat /sys/class/net/$3/address)\", \"dmac\" : \"$1\", \"qual\" : 40.0 }"; }
+		printLink() { echo -n "{ \"smac\" : \"$(cat /sys/class/net/$3/address)\", \"dmac\" : \"$1\", \"qual\" : 100.0 }"; }
 		# do not remove the linebreak between quotes below - it is intentional
 		IFS="
 "
 		nd=0
-		for entry in $(tail -n +3 /sys/kernel/debug/batman_adv/bat0/neighbors 2> /dev/null | tr '\t/[]()' ' ' | awk '{ print($1, $3, $4) }'); do
+		for entry in $(awk -F '[][)( \t]+' '/^[a-f0-9]/{ print($1, $3, $4) }' /sys/kernel/debug/batman_adv/bat0/neighbors 2> /dev/null); do
 			[ $nd -eq 0 ] && nd=1 || echo -n ", "
 			IFS=" "
 			printLink $entry
