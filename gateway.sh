@@ -31,28 +31,19 @@ setup_mullvad() {
 	rm -rf $tmp_dir
 	mkdir -p $tmp_dir
 	unzip $mullvad_zip -d $tmp_dir
-	cp $tmp_dir/*/mullvad_linux.conf /etc/openvpn
-	cp $tmp_dir/*/mullvad.key /etc/openvpn
-	# set restrictive access rights on key file
-	chmod 600 /etc/openvpn/mullvad.key
-	cp $tmp_dir/*/mullvad.crt /etc/openvpn
-	cp $tmp_dir/*/ca.crt /etc/openvpn
-	cp $tmp_dir/*/crl.pem /etc/openvpn
+	cp $tmp_dir/* /etc/openvpn
 	rm -rf $tmp_dir
 
 	#prevent OpenVPN from setting routes
-	echo "route-noexec" >> /etc/openvpn/mullvad_linux.conf
+	echo "route-noexec" >> /etc/openvpn/mullvad_se.conf
 
 	# prevent OpenVPN from changing nameservers in resolv.conf
-        sed -i "s|up /etc/openvpn/update-resolv-conf|#up /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_linux.conf
-        sed -i "s|down /etc/openvpn/update-resolv-conf|#down /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_linux.conf
+        sed -i "s|up /etc/openvpn/update-resolv-conf|#up /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_se.conf
+        sed -i "s|down /etc/openvpn/update-resolv-conf|#down /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_se.conf
 
 	#set a script that will set routes
-	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/mullvad_linux.conf
+	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/mullvad_se.conf
 		
-	#use servers in Sweden only
-	sed -i 's/^remote /#remote /' /etc/openvpn/mullvad_linux.conf
-	sed -i 's/^#remote se.mullvad.net/remote se.mullvad.net/' /etc/openvpn/mullvad_linux.conf
 }
 
 
@@ -99,7 +90,7 @@ setup_airvpn() {
 	echo "(I) ${green}Configure OpenVPN${col_reset}"
 	case "$vpn_provider" in
 		"mullvad")
-			setup_mullvad "mullvadconfig.zip"
+			setup_mullvad "mullvad_config_linux_se.zip"
 		;;
 		"airvpn")
 			setup_airvpn "AirVPN.zip"
