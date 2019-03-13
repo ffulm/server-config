@@ -9,7 +9,6 @@ ff_prefix=""
 mesh_ipv4_addr=""
 
 #For the map
-geo=""
 name="$(hostname)"
 firmware="server"
 community=""
@@ -188,7 +187,6 @@ if [ $run_mesh = 1 ]; then
 
 	{
 		echo -n "{"
-		[ -n "$geo" ] && echo -n "\"geo\" : \"$geo\", "
 		[ -n "$name" ] && echo -n "\"name\" : \"$name\", "
 		[ -n "$firmware" ] && echo -n "\"firmware\" : \"$firmware\", "
 		[ -n "$community" ] && echo -n "\"community\" : \"$community\", "
