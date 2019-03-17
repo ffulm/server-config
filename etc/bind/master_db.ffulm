@@ -1,6 +1,6 @@
 $TTL    604800
-@       IN      SOA     map10.ffulm. info@freifunk-ulm.de. (
-		38	; Serial
+@       IN      SOA     map11.ffulm. info@freifunk-ulm.de. (
+		39	; Serial
              604800	; Refresh
               86400	; Retry
             2419200	; Expire
@@ -17,6 +17,7 @@ $TTL    604800
 @					IN	NS	vpn2.ffulm.
 @					IN	NS	vpn1.ffulm.
 @					IN	NS	map10.ffulm.
+@					IN	NS	map11.ffulm.
 
 ; name servers - A records
 vpn12.ffulm.				IN      A	10.33.108.1
@@ -30,8 +31,9 @@ vpn2.ffulm.				IN	A	10.33.68.1
 vpn1.ffulm.				IN	A	10.33.64.1
 
 ; 10.33.0.0/16 - A records
-map.ffulm.				IN	A	10.33.92.1
+map.ffulm.				IN	A	10.33.92.2
 map10.ffulm.				IN	A	10.33.92.1
+map11.ffulm.				IN	A	10.33.92.2
 monitor.ffulm.    			IN      A	10.33.99.1
 daniel.ffulm			   	IN      A       10.33.99.3
 unterstuetzungsverein.ffulm.		IN	A	10.33.99.4
