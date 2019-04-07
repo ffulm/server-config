@@ -257,7 +257,8 @@ if [ $run_map = 1 ]; then
 	# create map data (meshviewer) - new meshviewer
 	#./map-backend.py -m /tmp/maps.txt -a ./aliases.json --meshviewer-org /var/www/data/meshviewer.json
 	# aliases.json can be used to override certain values of nodes. Is optional. Must be edited manually.
-	./map-backend.py -m /tmp/maps.txt --meshviewer-org /var/www/data/meshviewer.json
+	# --storage is for buffering disappeared nodes
+	./map-backend.py -m /tmp/maps.txt --storage disappeared_nodes_buffer--meshviewer-org /var/www/data/meshviewer.json
 
 	#update FF-Internal status page
 	# old map - deactivated
