@@ -57,7 +57,7 @@ fi
 
 	# copy cert renewal script
 	# backslash is for unaliased version of cp (no user interaction)
-	\cp etc/cron.weekly/check_cert.sh /etc/cron.weekly/
+	\cp etc/cron.daily/check_cert.sh /etc/cron.daily/
 	
 	mkdir -p /var/log/letsencrypt/
 	touch /var/log/letsencrypt/renew.log
@@ -65,7 +65,7 @@ fi
 
 	# call once to get initial cert
 	echo "(I) ${green}Get Letsencrypt Certificate... This can take some time!${col_reset}"
-	/etc/cron.weekly/check_cert.sh
+	/etc/cron.daily/check_cert.sh
 
 }
 
