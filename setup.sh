@@ -238,6 +238,10 @@ if [ -z "$mac_addr" -o -z "$mesh_ipv6_addr" ]; then
 	exit 1
 fi
 
+# disable rpcbind
+systemctl stop rpcbind
+systemctl disable rpcbind
+
 echo "(I) ${green}Update package database${col_reset}"
 apt update
 
