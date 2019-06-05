@@ -41,15 +41,7 @@ Für die Gatewayfunktion werden folgende Programme installiert und automatisch k
 Durch die Reaktivierung von IPv4 im Freifunk Netz werden weitere Dienste benötigt:
  * DHCP (isc-dhcp-server)
 
-Alle Serverbetreiber müssen sich absprechen, was den Bereich der verteilten DHCP Adressen angeht, damit es zu keinen Adresskonflikten kommt. Bisher wurden folgende Bereiche vergeben:
-
- * vpn1: 10.33.64.1 range 10.33.64.2 10.33.67.255
- * vpn2: 10.33.68.1 range 10.33.68.2 10.33.71.255
- * vpn4: 10.33.76.1 range 10.33.76.2 10.33.79.255
- 
- * vpn10: 10.33.100.1 range 10.33.100.2 10.33.103.255
- * vpn11: 10.33.104.1 range 10.33.104.2 10.33.107.255
- * vpn12: 10.33.108.1 range 10.33.108.2 10.33.111.255
+Alle Serverbetreiber müssen sich absprechen, was den Bereich der verteilten DHCP Adressen angeht, damit es zu keinen Adresskonflikten kommt.
  
 Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch Namen wie "meinserver.ffulm" aufgelöst werden.
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
@@ -65,7 +57,7 @@ Freifunk Ulm nutzt folgende Netze:
  
 Durchsatz und Statistiken
 -----
-Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet, der master server für munin ist z.Z. map10.
+Es wird munin auf den Gateways verwendet. Wenn dies nicht gewünscht wird, muss die Variable "setup_stats" auf "0" gesetzt werden. Die Software für munin clients wird automatisch eingerichtet.
 
 Update: Munin soll durch Prometheus/Graphana ersetzt werden.
 
