@@ -165,7 +165,7 @@ if [ $run_mesh = 1 ]; then
 
 	#announce status website via alfred
 	{
-		echo -n "{\"link\" : \"https://map10.freifunk-ulm.de/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
+		echo -n "{\"link\" : \"https://map11.freifunk-ulm.de/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
 	} | alfred -s 91 -u /var/run/alfred/alfred.sock
 
 
