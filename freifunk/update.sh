@@ -109,7 +109,7 @@ if [ $run_mesh = 1 ]; then
 
 		# Add IPv6 address the same way the routers do.
 		# This makes the address consistent with the one used on the routers status page.
-		macaddr="$(cat /sys/kernel/debug/batman_adv/bat0/originators | awk -F'[/ ]' '{print $7; exit;}')"
+		macaddr="$(batctl originators | awk -F'[/ ]' '{print $7; exit;}')"
 		euiaddr="$(ula_addr $ff_prefix $macaddr)"
 		echo "(I) Set EUI64-Address: $euiaddr"
 		ip a a "$euiaddr/64" dev bat0
@@ -198,7 +198,7 @@ if [ $run_mesh = 1 ]; then
 		IFS="
 "
 		nd=0
-		for entry in $(awk -F '[][)( \t]+' '/^[a-f0-9]/{ print($1, $3, $4) }' /sys/kernel/debug/batman_adv/bat0/neighbors 2> /dev/null); do
+		for entry in $(batctl neighbors | awk -F '[][)( \t]+' '/^[a-f0-9]/{ print($1, $3, $4) }' 2> /dev/null); do
 			[ $nd -eq 0 ] && nd=1 || echo -n ", "
 			IFS=" "
 			printLink $entry
