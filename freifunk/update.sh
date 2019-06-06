@@ -198,7 +198,7 @@ if [ $run_mesh = 1 ]; then
 		IFS="
 "
 		nd=0
-		for entry in $(batctl neighbors | awk -F '[][)( \t]+' '/^[a-f0-9]/{ print($1, $3, $4) }' 2> /dev/null); do
+		for entry in $(batctl neighbors 2>/dev/null | awk -F '[][)( \t]+' '/^[a-f0-9]/{ print($1, $3, $4) }' ); do
 			[ $nd -eq 0 ] && nd=1 || echo -n ", "
 			IFS=" "
 			printLink $entry
