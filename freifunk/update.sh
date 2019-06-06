@@ -87,7 +87,7 @@ if [ $run_mesh = 1 ]; then
 	if ! is_running "fastd"; then
 		echo "(I) Start fastd."
 		fastd --config /etc/fastd/fastd.conf --daemon
-		sleep 1
+		sleep 5
 	fi
 
 	if [ $(batctl if | grep fastd_mesh -c) = 0 ]; then
