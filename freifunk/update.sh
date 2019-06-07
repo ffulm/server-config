@@ -231,13 +231,22 @@ if [ $run_gateway = 1 ]; then
 		echo "(I) Start radvd."
 		/etc/init.d/radvd restart
 	fi
+	
 	if ! is_running "dhcpd"; then
 		echo "(I) Start DHCP."
 		/etc/init.d/isc-dhcp-server start
 	fi
 
-	# Activate the gateway announcements on a node that has a DHCP server running
-	batctl gw_mode server 10mbit/10mbit
+        sleep 2
+
+        # Deactivate the gateway announcements when services are missing
+        if ( [ `basename -a /sys/class/net/* | grep tun0 | wc -l` = 0 ] || ! is_running "dhcpd" || ! is_running "radvd" || ! is_running "named" || ! is_running "tayga" ); 
+        then
+          batctl gw_mode off
+        else
+          # Activate gateway announcements
+          batctl gw_mode server 10mbit/10mbit
+        fi
 
 fi # run_gateway
 
