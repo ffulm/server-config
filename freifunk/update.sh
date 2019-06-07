@@ -162,14 +162,6 @@ if [ $run_mesh = 1 ]; then
 			echo "(E) alfred is not running!"
 		fi
 	fi
-
-	#announce status website via alfred
-	{
-		echo -n "{\"link\" : \"https://map11.freifunk-ulm.de/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
-	} | alfred -s 91 -u /var/run/alfred/alfred.sock
-
-
-	#announce map information via alfred
 	
 	# do we have a tunnel to the internet ?
 	if [ $run_gateway = 1 ]; then
@@ -185,6 +177,12 @@ if [ $run_mesh = 1 ]; then
 		vpn="false"
 	fi
 
+	#announce status website via alfred
+	{
+		echo -n "{\"link\" : \"https://map11.freifunk-ulm.de/index.html\", \"label\" : \"Freifunk Gateway $name\"}"
+	} | alfred -s 91 -u /var/run/alfred/alfred.sock
+	
+        # announce map information via alfred
 	{
 		echo -n "{"
 		[ -n "$name" ] && echo -n "\"name\" : \"$name\", "
