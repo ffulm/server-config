@@ -57,6 +57,7 @@ class AlfredParser:
 
             "clientcount": { "type": "integer", "minimum": 0, "maximum": 255 },
             "gateway": { "type": "boolean" },
+            "using_gateway": { "type": "string" },
             "vpn": { "type": "boolean" },
             "links": {
                 "type": "array",
@@ -276,6 +277,7 @@ class Node:
         addresses = properties.get('addresses', [])
         autoupdater = properties.get('autoupdater', "")
         gateway = properties.get('gateway', False)
+        using_gateway = properties.get('using_gateway', "")
         vpn = properties.get('vpn', False)
 
         def fmt_time(d):
@@ -314,6 +316,11 @@ class Node:
         if self.lastseen:
             obj['lastseen'] = self.lastseen.isoformat()
 
+        if 'using_gateway' in properties:
+            obj['gateway'] = using_gateway
+        else:
+             obj['gateway'] = ''
+
         obj['is_online'] = self.online
         obj['is_gateway'] = gateway
         obj['clients'] = clientcount
@@ -325,7 +332,7 @@ class Node:
         obj['memory_usage'] = memory_usage
         obj['uptime'] = uptime
         obj['gateway_nexthop'] = '-'
-        obj['gateway'] = '-'
+        #obj['gateway'] = '-'
         obj['node_id'] = re.sub('[:]', '', self.mac)
         obj['mac'] = self.mac
         obj['addresses'] = addresses
