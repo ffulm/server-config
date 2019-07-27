@@ -67,15 +67,15 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libsodium${col_reset}"
 
 	#install libsodium
-	wget -N --no-check-certificate -O libsodium-1.0.18.tar.gz https://github.com/jedisct1/libsodium/archive/1.0.18.tar.gz
-	sha256check "libsodium-1.0.18.tar.gz" "d59323c6b712a1519a5daf710b68f5e7fde57040845ffec53850911f10a5d4f4"
+	wget -N --no-check-certificate -O libsodium-1.0.18.tar.gz https://download.libsodium.org/libsodium/releases/libsodium-1.0.18-stable.tar.gz
+	sha256check "libsodium-1.0.18.tar.gz" "822042fd3c59574207432b5bc798d6ce140642917f8c483414826cd38f460d0a"
 	tar -xvzf libsodium-1.0.18.tar.gz
-	cd libsodium-1.0.18
+	cd libsodium-stable
 	./configure
 	make
 	make install
 	cd ..
-	rm -rf libsodium-1.0.18*
+	rm -rf libsodium-*
 	ldconfig
 
 	echo "(I) ${green}Build and install libuecc${col_reset}"
