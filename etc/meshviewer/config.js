@@ -35,29 +35,28 @@ module.exports = function () {
     'siteName': 'Freifunk Ulm',
     'mapLayers': [
       {
-        'name': 'Freifunk Regensburg',
-        // Please ask Freifunk Regensburg before using its tile server c- example with retina tiles
-        'url': 'https://{s}.tiles.ffrgb.net/{z}/{x}/{y}{retina}.png',
+        'name': 'Freifunk',
+        'url': 'https://tile30.freifunk-ulm.de/map/{z}/{x}/{y}.png',
         'config': {
           'maxZoom': 20,
-          'subdomains': '1234',
+          //'subdomains': '1234',
           'attribution': '<a href="http://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="http://www.openstreetmap.org/about/" target="_blank">&copy; OpenStreetMap contributors</a>',
           'start': 6
         }
       },
-      {
-        'name': 'Freifunk Regensburg Night',
-        // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
-        'url': 'https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png',
-        'config': {
-          'maxZoom': 20,
-          'subdomains': '1234',
-          'attribution': ' <a href="http://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="http://www.openstreetmap.org/about/" target="_blank">&copy; OpenStreetMap contributors</a>',
-          'mode': 'night',
-          'start': 19,
-          'end': 7
-        }
-      },
+      //{
+      //  'name': 'Freifunk Regensburg Night',
+      //  // Please ask Freifunk Regensburg before using its tile server - example with retina and dark tiles
+      //  'url': 'https://{s}.tiles.ffrgb.net/n/{z}/{x}/{y}{retina}.png',
+      //  'config': {
+      //    'maxZoom': 20,
+      //    'subdomains': '1234',
+      //    'attribution': ' <a href="http://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="http://www.openstreetmap.org/about/" target="_blank">&copy; OpenStreetMap contributors</a>',
+      //    'mode': 'night',
+      //    'start': 19,
+      //    'end': 7
+      //  }
+      //},
       {
         'name': 'OpenStreetMap.HOT',
         'url': 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
