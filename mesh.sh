@@ -81,9 +81,9 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libuecc${col_reset}"
 
 	#install libuecc
-	wget -N --no-check-certificate https://projects.universe-factory.net/attachments/download/85 -O libuecc-7.tar.xz
-	sha256check "libuecc-7.tar.xz" "b94aef08eab5359d0facaa7ead2ce81b193eef0c61379d9835213ebc0a46257a"
-	tar xf libuecc-7.tar.xz
+	wget -N --no-check-certificate https://git.universe-factory.net/libuecc/snapshot/libuecc-7.tar -O libuecc-7.tar
+	sha256check "libuecc-7.tar" "0120aee869f56289204255ba81535369816655264dd018c63969bf35b71fd707"
+	tar xf libuecc-7.tar
 	mkdir libuecc_build
 	cd libuecc_build
 	cmake ../libuecc-7
@@ -96,9 +96,9 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install fastd${col_reset}"
 
 	#install fastd
-	wget -N --no-check-certificate https://projects.universe-factory.net/attachments/download/86 -O fastd-18.tar.xz
-	sha256check "fastd-18.tar.xz" "714ff09d7bd75f79783f744f6f8c5af2fe456c8cf876feaa704c205a73e043c9"
-	tar xf fastd-18.tar.xz
+	wget -N --no-check-certificate https://git.universe-factory.net/fastd/snapshot/fastd-18.tar -O fastd-18.tar
+	sha256check "fastd-18.tar" "dce99ee057f43e3d732a120fb0cb60acb3b86e8231d3dd64ab72fc1254c2491a"
+	tar xf fastd-18.tar
 	mkdir fastd_build
 	cd fastd_build
 	# -D is workaround needed till fastd-19
