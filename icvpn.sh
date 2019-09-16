@@ -4,21 +4,21 @@ echo "${green}************************${col_reset}"
 echo "${green}* set up InterCity VPN *${col_reset}"
 echo "${green}************************${col_reset}"
 
+
 # ICVPN DNS updates
 {
 	echo "(I) ${green}icvpn dns: Install git and python yaml package${col_reset}"
 	apt install --assume-yes git sudo python-yaml
 	echo "(I) ${green}icvpn dns: Clone icvpn-meta${col_reset}"
-        rm -rf /var/lib/icvpn-meta
+	rm -rf /var/lib/icvpn-meta
 	git clone https://github.com/freifunk/icvpn-meta /var/lib/icvpn-meta
 	echo "(I) ${green}icvpn dns: Clone icvpn-scripts${col_reset}"
-        rm -rf /opt/icvpn-scripts
+	rm -rf /opt/icvpn-scripts
 	git clone https://github.com/freifunk/icvpn-scripts /opt/icvpn-scripts
 
 	echo "(I) ${green}icvpn dns: Copy cron daily file${col_reset}"
 	\cp -f etc/cron.daily/icvpn-dns-update /etc/cron.daily/
 }
-
 
 # tinc tunnel
 {
@@ -38,7 +38,7 @@ echo "${green}************************${col_reset}"
 	# clean up
 	rm -rf /etc/tinc/icvpn
 	echo "(I) ${green}icvpn tinc: Clone repo of other peers ${col_reset}"
-        git clone https://github.com/freifunk/icvpn /tmp/icvpn
+	git clone https://github.com/freifunk/icvpn /tmp/icvpn
 	\mv -f /tmp/icvpn /etc/tinc/
 
 	# restore key pair, but only if it's a pair
@@ -50,7 +50,7 @@ echo "${green}************************${col_reset}"
 	fi
 
 	if [ -z "$(cat /etc/tinc/nets.boot | grep 'icvpn')" ]; then
-	        echo "(I) ${green}icvpn tinc: Add icvpn startup entry to /etc/tinc/nets.boot${col_reset}"
+		echo "(I) ${green}icvpn tinc: Add icvpn startup entry to /etc/tinc/nets.boot${col_reset}"
 		echo "icvpn" >> nets.boot
 	fi
 
@@ -61,7 +61,7 @@ echo "${green}************************${col_reset}"
 
 	# backslash is for unaliased version of cp (no user interaction)
 	echo "(I) ${green}icvpn tinc: Copy cron hourly file${col_reset}"
-        \cp -f etc/cron.hourly/icvpn-update /etc/cron.hourly/	
+	\cp -f etc/cron.hourly/icvpn-update /etc/cron.hourly/
 
 	# copy git merge hook
 	echo "(I) ${green}icvpn tinc: Copy git merge hook${col_reset}"
@@ -77,7 +77,7 @@ echo "${green}************************${col_reset}"
 	echo "(I) ${green}icvpn tinc: Copy up/down scripts${col_reset}"
 	\cp -f etc/tinc/icvpn/tinc-up /etc/tinc/icvpn/
 	\cp -f etc/tinc/icvpn/tinc-down /etc/tinc/icvpn/
-	 
+
 	# modify icvpn addresses
 	echo "(I) ${green}icvpn tinc: Set interface addresses for icvpn${col_reset}"
 	sed -i "s/ICVPN_IPV4_ADDR/$icvpn_ipv4_addr/g" /etc/tinc/icvpn/tinc-up
@@ -89,7 +89,7 @@ echo "${green}************************${col_reset}"
 	if [ ! -f /etc/tinc/icvpn/rsa_key.priv -o ! -f /etc/tinc/icvpn/hosts/$icvpn_hostname ]; then
 		echo "(I) ${green}icvpn tinc: Create key pair${col_reset}"
 		echo "(I) ${green}---- PRESS ENTER (2x)------${col_reset}"
-        	tincd -n icvpn -K	
+		tincd -n icvpn -K	
 
 		sed -i '1i\Address = '$ff_servername'.freifunk-'$community_id'.de' /etc/tinc/icvpn/hosts/$icvpn_hostname
 	fi
@@ -102,19 +102,15 @@ echo "${green}************************${col_reset}"
 
 } # tinc
 
-
 # bird
 {
-
 	echo "(I) ${green}icvpn bird: Install bird/bird6 package${col_reset}"
 	apt install --assume-yes git bird
-
 
 	echo "(I) ${green}icvpn bird: copy bird config${col_reset}"
 	\cp -f etc/bird/bird.conf /etc/bird/
 	\cp -f etc/bird/bird6.conf /etc/bird/
 
-	
 	# insert bird addresses and AS number
 	echo "(I) ${green}icvpn bird: Set interface addresses and AS number${col_reset}"
 	sed -i "s/ICVPN_IPV4_ADDR/$icvpn_ipv4_addr/g" /etc/bird/bird.conf
@@ -134,9 +130,6 @@ echo "${green}************************${col_reset}"
 	systemctl enable bird
 	service bird6 start
 	systemctl enable bird6
-
-
 } # bird
-
 
 exit 0

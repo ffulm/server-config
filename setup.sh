@@ -190,8 +190,8 @@ green=`tput setaf 2`
 col_reset=`tput sgr0`
 
 if [ $run -eq 0 ]; then
-  echo "Check the variables in this script and then set run to 1!"
-  exit 1
+	echo "Check the variables in this script and then set run to 1!"
+	exit 1
 fi
 
 ula_addr() {
@@ -264,7 +264,7 @@ fi
 	echo "(I) ${green}Fill /opt/freifunk/* directory...${col_reset}"
 	cp -rf freifunk /opt/
 
-        # transfer several constants to update.sh
+	# transfer several constants to update.sh
 	sed -i "s/mac_addr=\".*\"/mac_addr=\"$mac_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/mesh_ipv6_addr=\".*\"/mesh_ipv6_addr=\"$mesh_ipv6_addr\"/g" /opt/freifunk/update.sh
 	sed -i "s/ff_prefix=\".*\"/ff_prefix=\"$ff_prefix\"/g" /opt/freifunk/update.sh
@@ -272,7 +272,7 @@ fi
 
 	sed -i "s/community=\".*\"/community=\"$community_id\"/g" /opt/freifunk/update.sh
 
-        # transfer run state to update.sh
+	# transfer run state to update.sh
 	sed -i "s/run_mesh=.*/run_mesh=$setup_mesh/g" /opt/freifunk/update.sh
 	sed -i "s/run_gateway=.*/run_gateway=$setup_gateway/g" /opt/freifunk/update.sh
 	sed -i "s/run_webserver=.*/run_webserver=$setup_webserver/g" /opt/freifunk/update.sh

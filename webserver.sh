@@ -11,9 +11,9 @@ echo "${green}********************${col_reset}"
 	# generate strong DH primes - takes a very long time!
 	# run only if pem file is missing
 	if [ ! -f /etc/ssl/certs/dhparam.pem ]; then
-	  echo "(I) ${green} Generating DH primes - be patient!${col_reset}"
-	  openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
-	fi  
+		echo "(I) ${green} Generating DH primes - be patient!${col_reset}"
+		openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
+	fi
 }
 
 {
@@ -40,7 +40,7 @@ fi
 	sed -i "s/SERVERNAME/$ff_servername/g" /var/www/index.html
 
 	# owner of webfiles should be webserver
-        chown -R www-data:www-data /var/www
+	chown -R www-data:www-data /var/www
 }
 
 
@@ -49,7 +49,7 @@ fi
 	rm -rf /opt/letsencrypt/
 
 	# get certbot
-        apt install --assume-yes certbot
+	apt install --assume-yes certbot
 
 	# get letsencrypt client
 	#echo "(I) ${green}Populate /opt/letsencrypt/${col_reset}"
@@ -70,7 +70,3 @@ fi
 }
 
 exit 0
-
-
-
-

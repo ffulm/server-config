@@ -4,6 +4,7 @@ echo "${green}****************************${col_reset}"
 echo "${green}* set up gateway functions *${col_reset}"
 echo "${green}****************************${col_reset}"
 
+
 #Firewall
 {	
 	if ! ip6tables -t nat -L > /dev/null  2>&1; then
@@ -18,7 +19,6 @@ echo "${green}****************************${col_reset}"
 	cp -rf etc/iptables/* /etc/iptables/
 	/etc/init.d/netfilter-persistent restart
 }
-
 
 setup_mullvad() {
 	local mullvad_zip="$1"
@@ -42,10 +42,8 @@ setup_mullvad() {
 	sed -i "s|up /etc/openvpn/update-resolv-conf|#up /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_se.conf
 	sed -i "s|down /etc/openvpn/update-resolv-conf|#down /etc/openvpn/update-resolv-conf|g" /etc/openvpn/mullvad_se.conf
 	#set a script that will set routes
-	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/mullvad_se.conf		
+	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/mullvad_se.conf
 }
-
-
 
 setup_airvpn() {
 	local airvpn_zip="$1"
@@ -73,9 +71,7 @@ setup_airvpn() {
 
 	#set a script that will set routes
 	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/AirVPN_*.ovpn
-
 }
-
 
 #OpenVPN
 {
@@ -157,14 +153,10 @@ setup_airvpn() {
 	cp -f etc/dhcp/isc-dhcp-server /etc/default/
 	sed -i "s/DNS_SERVER/$mesh_ipv4_addr/g" /etc/dhcp/dhcpd.conf
 	sed -i "s/DHCP_RANGE/$dhcp_ipv4_range/g" /etc/dhcp/dhcpd.conf
-        # change log rules in rsyslogd
+	# change log rules in rsyslogd
 	cp -f etc/rsyslog.d/00-dhcp.conf /etc/rsyslog.d/
 	# activate new rules...
 	systemctl restart rsyslog
 }
 
-
 exit 0
-
-
-
