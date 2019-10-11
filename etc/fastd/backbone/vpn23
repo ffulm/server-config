@@ -1,0 +1,3 @@
+key "831f18e475169317d074d014082b72cba7dec79e40b94c00324736764702ce52";
+float no;
+remote "vpn23.freifunk-ulm.de" port 1244;

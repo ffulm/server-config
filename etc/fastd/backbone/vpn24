@@ -1,0 +1,3 @@
+key "e2898b23593c8c16976881d183f27a264f862853e298ad75ef3601190f0528f7";
+float no;
+remote "vpn24.freifunk-ulm.de" port 1244;
