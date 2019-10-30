@@ -36,7 +36,7 @@ module.exports = function () {
     'mapLayers': [
       {
         'name': 'Freifunk',
-        'url': 'https://tile30.freifunk-ulm.de/map/{z}/{x}/{y}.png',
+        'url': 'https://tile.freifunk-ulm.de/{z}/{x}/{y}.png',
         'config': {
           'maxZoom': 20,
           //'subdomains': '1234',
