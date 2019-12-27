@@ -95,7 +95,7 @@ if [ $run_mesh = 1 ]; then
 		ip link set fastd_mesh up
 		ip addr flush dev fastd_mesh
 		# force BATMAN V routing algo _before_ batctl sets up the interface
-		echo BATMAN_V > /sys/module/batman_adv/parameters/routing_algo
+		batctl routing_algo BATMAN_V
 		batctl if add fastd_mesh
 	fi
 
@@ -122,11 +122,11 @@ if [ $run_mesh = 1 ]; then
 		echo 300000 > /proc/sys/net/ipv6/neigh/bat0/base_reachable_time_ms
 
 		echo "(I) Configure batman-adv."
-		echo 10000 > /sys/class/net/bat0/mesh/orig_interval
-		echo 1 > /sys/class/net/bat0/mesh/distributed_arp_table
-		echo 1 > /sys/class/net/bat0/mesh/multicast_mode
-		echo 1 > /sys/class/net/bat0/mesh/bridge_loop_avoidance
-		echo 1 > /sys/class/net/bat0/mesh/aggregated_ogms
+		batctl meshif bat0 orig_interval 10000
+		batctl meshif bat0 distributed_arp_table 1
+		batctl meshif bat0 multicast_mode 1
+		batctl meshif bat0 bridge_loop_avoidance 1
+		batctl meshif bat0 aggregated_ogms 1
 
 		#set size of neighbor table
 		gc_thresh=1024 #default is 256
