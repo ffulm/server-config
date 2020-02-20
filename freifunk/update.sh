@@ -126,7 +126,7 @@ if [ $run_mesh = 1 ]; then
 		batctl meshif bat0 distributed_arp_table 1
 		batctl meshif bat0 multicast_mode 1
 		batctl meshif bat0 bridge_loop_avoidance 1
-		batctl meshif bat0 aggregated_ogms 1
+		batctl meshif bat0 aggregation 1
 
 		#set size of neighbor table
 		gc_thresh=1024 #default is 256
