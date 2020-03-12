@@ -68,7 +68,7 @@ echo "${green}***************************${col_reset}"
 
 	#install libsodium
 	wget -N --no-check-certificate -O libsodium-1.0.18.tar.gz https://download.libsodium.org/libsodium/releases/libsodium-1.0.18-stable.tar.gz
-	sha256check "libsodium-1.0.18.tar.gz" "822042fd3c59574207432b5bc798d6ce140642917f8c483414826cd38f460d0a"
+	sha256check "libsodium-1.0.18.tar.gz" "34a97c73c08e12e53200eda968a03b8076e06112947906e0e614ddae93e74093"
 	tar -xvzf libsodium-1.0.18.tar.gz
 	cd libsodium-stable
 	./configure
