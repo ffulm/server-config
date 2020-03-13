@@ -20,7 +20,7 @@ einem Neustart notwendige Programme neu gestartet.
 Für die Serverfunktion werden folgende Programme installiert und automatisch konfiguriert:
 
  * Routingprotokoll: [batman-adv](http://www.open-mesh.org/projects/batman-adv/wiki)
- * FF-VPN: [fastd](https://projects.universe-factory.net/projects/fastd/wiki)
+ * FF-VPN: [fastd](https://fastd.readthedocs.io/en/latest/)
  * Webserver: lighttpd
  * Karte: [ffmap](https://github.com/ffnord/ffmap-d3)
 
