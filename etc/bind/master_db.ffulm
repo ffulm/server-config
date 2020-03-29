@@ -1,40 +1,28 @@
 $TTL    604800
 @       IN      SOA     map11.ffulm. info@freifunk-ulm.de. (
-		39	; Serial
-             604800	; Refresh
-              86400	; Retry
-            2419200	; Expire
-             604800 )	; Negative Cache TTL
+                 55     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
 ;
 ; name servers - NS records
-@					IN      NS	vpn12.ffulm.
-@					IN      NS	vpn11.ffulm.
-@					IN      NS	vpn10.ffulm.
-;@					IN      NS	vpn6.ffulm.
-@					IN      NS	vpn5.ffulm.
-@					IN	NS	vpn4.ffulm.
-;@     					IN      NS	vpn3.ffulm.
-@					IN	NS	vpn2.ffulm.
-@					IN	NS	vpn1.ffulm.
-@					IN	NS	map10.ffulm.
-@					IN	NS	map11.ffulm.
+
+@                                       IN      NS      vpn10.ffulm.
+@                                       IN      NS      vpn11.ffulm.
+@                                       IN      NS      vpn12.ffulm.
+@                                       IN      NS      vpn20.ffulm.
+@                                       IN      NS      vpn21.ffulm.
+@                                       IN      NS      vpn22.ffulm.
 
 ; name servers - A records
-vpn12.ffulm.				IN      A	10.33.108.1
-vpn11.ffulm.				IN      A	10.33.104.1
-vpn10.ffulm.				IN      A	10.33.100.1
-;vpn6.ffulm.				IN      A	10.33.84.1
-vpn5.ffulm.				IN      A	10.33.80.1
-vpn4.ffulm.				IN	A	10.33.76.1
-;vpn3.ffulm. 				IN      A	10.33.72.1
-vpn2.ffulm.				IN	A	10.33.68.1
-vpn1.ffulm.				IN	A	10.33.64.1
+vpn10.ffulm.                            IN      A       10.33.100.1
+vpn11.ffulm.                            IN      A       10.33.104.1
+vpn12.ffulm.                            IN      A       10.33.108.1
+vpn20.ffulm.                            IN      A       10.33.200.1
+vpn21.ffulm.                            IN      A       10.33.204.1
+vpn22.ffulm.                            IN      A       10.33.208.1
 
 ; 10.33.0.0/16 - A records
-map.ffulm.				IN	A	10.33.92.2
-map10.ffulm.				IN	A	10.33.92.1
-map11.ffulm.				IN	A	10.33.92.2
-monitor.ffulm.    			IN      A	10.33.99.1
-daniel.ffulm			   	IN      A       10.33.99.3
-unterstuetzungsverein.ffulm.		IN	A	10.33.99.4
-www.unterstuetzungsverein.ffulm.	IN	CNAME	unterstuetzungsverein.ffulm.
+map.ffulm.                              IN      A       10.33.92.2
+map11.ffulm.                            IN      A       10.33.92.2
