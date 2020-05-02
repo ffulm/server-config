@@ -73,6 +73,11 @@ setup_airvpn() {
 	echo "route-up /etc/openvpn/update-route" >> /etc/openvpn/AirVPN_*.ovpn
 }
 
+setup_ffrl() {
+	# todo
+	echo "Freifunk Rheinland"
+}
+
 #OpenVPN
 {
 	echo "(I) ${green}Install OpenVPN.${col_reset}"
@@ -89,6 +94,9 @@ setup_airvpn() {
 		;;
 		"airvpn")
 			setup_airvpn "AirVPN.zip"
+		;;
+		"freifunkrheinland")
+			setup_ffrl
 		;;
 		*)
 			echo "(E) ${red}Provide vpn provider string in setup.sh${col_reset}"
